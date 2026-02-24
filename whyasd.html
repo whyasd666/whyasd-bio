@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whyasd</title>
+    <link rel="shortcut icon" href="icon.jpg" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0a0000;
+            color: #ffffff;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        header {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            background: hsl(200, 100%, 2%);
+            color: white;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #e8491d 3px solid;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        header ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+
+        header #branding {
+            float: left;
+        }
+
+        header #branding h1 {
+            margin: 0;
+        }
+
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+
+        header .highlight, header .current a {
+            color: #e8491d;
+            font-weight: bold;
+        }
+
+        #newsletter {
+            padding: 15px;
+            color: #fff;
+            background: #00060a;
+        }
+
+        #newsletter h1 {
+            float: left;
+        }
+
+        #newsletter form {
+            float: right;
+            margin-top: 15px;
+        }
+
+        #newsletter input[type="email"] {
+            padding: 4px;
+            height: 25px;
+            width: 250px;
+        }
+
+        #newsletter button {
+            height: 33px;
+            background: #e8491d;
+            border: 0;
+            padding: 0 20px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #main {
+            padding: 20px;
+        }
+
+        article {
+            margin-bottom: 20px;
+        }
+
+        article h2 {
+            color: #e8491d;
+        }
+
+        footer {
+            padding: 20px;
+            margin-top: 20px;
+            color: #fff;
+            background-color: #e8491d;
+            text-align: center;
+        }
+
+        /* Для мобильных устройств */
+        @media(max-width: 768px) {
+            header #branding,
+            header nav,
+            header nav li,
+            #newsletter h1,
+            #newsletter form {
+                float: none;
+                text-align: center;
+                width: 100%;
+            }
+
+            header {
+                padding-bottom: 20px;
+            }
+
+            #newsletter form {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Why</span>asd</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Main</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#posts">Records</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="newsletter">
+        <div class="container">
+            <h1>CPP/WEB coder + ctf player</h1>
+        </div>
+    </section>
+
+    <section id="main">
+        <div class="container">
+            <article id="about">
+                <h2>About</h2>
+                <p>Sup. Iam student of Innopolis University, CSE-04. I learn CyberSecurity for 4 years, and coding on C++ and Web</p>
+            </article>
+
+            
+            <article id="Hobby" weidth="20">
+                <h2>Hobby</h2>
+                <p>Graffity</p>
+                <img src="Me.jpg" style="width: 600px; height: auto;">
+            </article>
+
+            <section id="posts">
+                <article>
+                    <h2>First Post</h2>
+                    <small>Published January 6, 2026</small>
+                    <p>Dearelized ego.</p>
+                    <p></p>
+                </article>
+
+                <article>
+                    <h2>Successes of CTF</h2>
+                    <p>Have 1st place in KoTH of RU region</p>
+                    <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1637528" style='border:none;'></iframe>
+                </article>
+
+            </section>
+        </div>
+    </section>
+
+    <footer>
+        <p>Whyasd, Copyright © 2026</p>
+    </footer>
+
+</body>
+</html>
