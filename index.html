@@ -1,200 +1,652 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whyasd</title>
-    <link rel="shortcut icon" href="icon.jpg" />
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #0a0000;
-            color: #ffffff;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>whyasd — пентест & разработка</title>
+  <meta name="description" content="whyasd: специалист по информационной безопасности, пентестер, fullstack-разработчик. Пентест, сайты под ключ, DevOps, C++.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
+    body {
+      background-color: #050507;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #f0f0f0;
+      line-height: 1.4;
+      overflow-x: hidden;
+    }
 
-        header {
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            background: hsl(200, 100%, 2%);
-            color: white;
-            padding-top: 30px;
-            min-height: 70px;
-            border-bottom: #e8491d 3px solid;
-        }
+    /* красная неоновая тема */
+    :root {
+      --red-glow: #E63946;
+      --red-dark: #9b1d2c;
+      --red-soft: #ff4d6d;
+      --bg-surface: rgba(12, 12, 16, 0.7);
+      --border-glow: rgba(230, 57, 70, 0.3);
+      --shadow-red: 0 0 12px rgba(230, 57, 70, 0.4);
+    }
 
-        header a {
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 16px;
-        }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
 
-        header ul {
-            padding: 0;
-            margin: 0;
-        }
+    /* кастомный скролл */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0a0c;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--red-glow);
+      border-radius: 6px;
+    }
 
-        header li {
-            float: left;
-            display: inline;
-            padding: 0 20px 0 20px;
-        }
+    /* хедер */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 0;
+      z-index: 100;
+      transition: 0.3s ease;
+    }
+    .header.scrolled {
+      background: rgba(5, 5, 7, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(230, 57, 70, 0.3);
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #fff, var(--red-glow));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 8px rgba(230,57,70,0.3);
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+    }
+    .nav-links a {
+      color: #bbb;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .nav-links a:hover {
+      color: var(--red-glow);
+      text-shadow: 0 0 6px var(--red-glow);
+    }
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .burger span {
+      width: 26px;
+      height: 2px;
+      background: white;
+      border-radius: 2px;
+      transition: 0.2s;
+    }
 
-        header #branding {
-            float: left;
-        }
+    /* мобильное меню */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100%;
+      background: #08080c;
+      backdrop-filter: blur(20px);
+      z-index: 200;
+      padding: 100px 30px;
+      transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      border-left: 1px solid var(--border-glow);
+    }
+    .mobile-menu.open {
+      right: 0;
+    }
+    .mobile-menu a {
+      display: block;
+      color: #ddd;
+      font-size: 22px;
+      margin-bottom: 28px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    .mobile-menu a:hover {
+      color: var(--red-glow);
+    }
+    .close-menu {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
 
-        header #branding h1 {
-            margin: 0;
-        }
+    /* hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: radial-gradient(circle at 70% 30%, rgba(230,57,70,0.12) 0%, transparent 55%);
+    }
+    .animated-grid {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(230,57,70,0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(230,57,70,0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: drift 20s linear infinite;
+      opacity: 0.4;
+    }
+    @keyframes drift {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+    .hero-tag {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: var(--red-glow);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    .hero-name {
+      font-size: clamp(48px, 8vw, 100px);
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, #fff, var(--red-glow) 70%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-size: 24px;
+      color: #ccc;
+      margin-bottom: 24px;
+      border-left: 3px solid var(--red-glow);
+      padding-left: 20px;
+    }
+    .hero-desc {
+      font-size: 16px;
+      color: #a0a0b0;
+      max-width: 560px;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+    .hero-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(20, 20, 28, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 10px 20px;
+      border-radius: 60px;
+      border: 1px solid rgba(230,57,70,0.2);
+      transition: 0.2s;
+    }
+    .contact-item i {
+      color: var(--red-glow);
+      font-size: 16px;
+    }
+    .contact-item a {
+      color: #f0f0f0;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .contact-item:hover {
+      border-color: var(--red-glow);
+      transform: translateY(-2px);
+      box-shadow: 0 0 12px rgba(230,57,70,0.2);
+    }
+    /* кнопки в hero удалены по требованию */
 
-        header nav {
-            float: right;
-            margin-top: 10px;
-        }
+    /* общие секции */
+    .section {
+      padding: 100px 0;
+      position: relative;
+    }
+    .section-tag {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red-glow);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff, #e0e0e0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .grid-2, .grid-3 {
+      display: grid;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .service-card, .skill-card {
+      background: rgba(12, 12, 16, 0.6);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(230, 57, 70, 0.15);
+      border-radius: 28px;
+      padding: 32px;
+      transition: 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .service-card:hover, .skill-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--red-glow);
+      box-shadow: 0 20px 35px -12px rgba(230,57,70,0.2);
+    }
+    .service-icon {
+      font-size: 34px;
+      color: var(--red-glow);
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      color: #a5a5b5;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .tech-badge {
+      background: rgba(230,57,70,0.12);
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--red-glow);
+      letter-spacing: 0.3px;
+    }
 
-        header .highlight, header .current a {
-            color: #e8491d;
-            font-weight: bold;
-        }
+    /* опыт */
+    .exp-card {
+      background: rgba(10, 10, 14, 0.8);
+      border-left: 4px solid var(--red-glow);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(4px);
+    }
+    .exp-title {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .exp-date {
+      color: var(--red-glow);
+      font-size: 13px;
+      margin: 8px 0 14px;
+    }
+    .exp-desc {
+      color: #b0b0c0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
 
-        #newsletter {
-            padding: 15px;
-            color: #fff;
-            background: #00060a;
-        }
+    /* виджет tryhackme и контакты */
+    .widget-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .glass-card {
+      background: rgba(8, 8, 12, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 36px;
+      border: 1px solid rgba(230,57,70,0.25);
+      padding: 40px;
+      transition: 0.3s;
+    }
+    .thm-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #111;
+      padding: 14px 28px;
+      border-radius: 60px;
+      margin-top: 20px;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      border: 1px solid var(--border-glow);
+    }
+    .thm-link i {
+      color: var(--red-glow);
+      font-size: 20px;
+    }
+    .thm-link:hover {
+      background: var(--red-glow);
+      color: #050507;
+      border-color: var(--red-glow);
+    }
 
-        #newsletter h1 {
-            float: left;
-        }
+    /* footer */
+    .footer {
+      border-top: 1px solid rgba(230,57,70,0.2);
+      padding: 40px 0;
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+    }
 
-        #newsletter form {
-            float: right;
-            margin-top: 15px;
-        }
+    /* анимация появления */
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        #newsletter input[type="email"] {
-            padding: 4px;
-            height: 25px;
-            width: 250px;
-        }
-
-        #newsletter button {
-            height: 33px;
-            background: #e8491d;
-            border: 0;
-            padding: 0 20px;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        #main {
-            padding: 20px;
-        }
-
-        article {
-            margin-bottom: 20px;
-        }
-
-        article h2 {
-            color: #e8491d;
-        }
-
-        footer {
-            padding: 20px;
-            margin-top: 20px;
-            color: #fff;
-            background-color: #e8491d;
-            text-align: center;
-        }
-
-        /* Для мобильных устройств */
-        @media(max-width: 768px) {
-            header #branding,
-            header nav,
-            header nav li,
-            #newsletter h1,
-            #newsletter form {
-                float: none;
-                text-align: center;
-                width: 100%;
-            }
-
-            header {
-                padding-bottom: 20px;
-            }
-
-            #newsletter form {
-                margin-top: 10px;
-            }
-        }
-    </style>
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .burger { display: flex; }
+      .grid-2, .grid-3, .widget-container {
+        grid-template-columns: 1fr;
+      }
+      .hero-contacts {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .container {
+        padding: 0 20px;
+      }
+    }
+    @media (max-width: 550px) {
+      .hero-contacts {
+        width: 100%;
+      }
+      .contact-item {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <div id="branding">
-                <h1><span class="highlight">Why</span>asd</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#">Main</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#posts">Records</a></li>
-                </ul>
-            </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-menu" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+  <a href="#home">Главная</a>
+  <a href="#services">Услуги</a>
+  <a href="#skills">Навыки</a>
+  <a href="#exp">Опыт</a>
+  <a href="#contact">Контакты</a>
+</div>
+
+<header class="header" id="header">
+  <div class="container">
+    <nav class="nav">
+      <div class="logo">whyasd</div>
+      <div class="nav-links">
+        <a href="#home">Главная</a>
+        <a href="#services">Услуги</a>
+        <a href="#skills">Навыки</a>
+        <a href="#exp">Опыт</a>
+        <a href="#contact">Контакты</a>
+      </div>
+      <div class="burger" id="burgerBtn">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO (без кнопок "Услуги" и "Контакты") -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="animated-grid"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-tag">// RED TEAM · FULLSTACK · DEVSECOPS</div>
+        <h1 class="hero-name">whyasd</h1>
+        <div class="hero-title">Специалист по информационной безопасности & разработчик</div>
+        <p class="hero-desc">Пентестер с опытом более 3 лет</p>
+        <p>Fullstack-разработчик (Web / c++) DevOps инженер.</p>
+        <p>ервое место TryHackMe KoTH Россия, сертифицированный Red Team</p>
+        <p>Провожу аудит безопасности, разрабатываю сайты и высоконагруженные решения.</p></div>
+        <div class="hero-contacts">
+          <div class="contact-item"><i class="fas fa-phone-alt"></i><a href="tel:+79187890009">+7 (918) 789-0009</a></div>
+          <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:messdope@mail.ru">messdope@mail.ru</a></div>
+          <div class="contact-item"><i class="fab fa-telegram"></i><a href="https://t.me/whyasd666" target="_blank">@whyasd666</a></div>
         </div>
-    </header>
+        <!-- Кнопки удалены полностью -->
+      </div>
+    </div>
+  </section>
 
-    <section id="newsletter">
-        <div class="container">
-            <h1>CPP/WEB coder + ctf player</h1>
+  <!-- УСЛУГИ (пентест, сайты, devops, c++) -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-tag">ЧТО Я ПРЕДЛАГАЮ</div>
+      <h2 class="section-title">Экспертиза на стыке<br>безопасности и разработки</h2>
+      <div class="grid-3">
+        <div class="service-card reveal">
+          <div class="service-icon"><i class="fas fa-skull-crossbones"></i></div>
+          <h3>Пентест (Red Team)</h3>
+          <p>Внутренний / внешний аудит, взлом Active Directory, веб-пентест (OWASP Top 10), эмуляция APT, социальная инженерия. Полный цикл от OSINT до закрепления.</p>
+          <div class="tech-stack"><span class="tech-badge">Metasploit</span><span class="tech-badge">Cobalt Strike</span><span class="tech-badge">Burp Suite</span></div>
         </div>
-    </section>
-
-    <section id="main">
-        <div class="container">
-            <article id="about">
-                <h2>About</h2>
-                <p>Sup. Iam student of Innopolis University, CSE-04. I learn CyberSecurity for 4 years, and coding on C++ and Web</p>
-            </article>
-
-            
-            <article id="Hobby" weidth="20">
-                <h2>Hobby</h2>
-                <p>Graffity</p>
-                <img src="Me.jpg" style="width: 600px; height: auto;">
-            </article>
-
-            <section id="posts">
-                <article>
-                    <h2>First Post</h2>
-                    <small>Published January 6, 2026</small>
-                    <p>Dearelized ego.</p>
-                    <p></p>
-                </article>
-
-                <article>
-                    <h2>Successes of CTF</h2>
-                    <p>Have 1st place in KoTH of RU region</p>
-                    <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1637528" style='border:none;'></iframe>
-                </article>
-
-            </section>
+        <div class="service-card reveal">
+          <div class="service-icon"><i class="fas fa-code"></i></div>
+          <h3>Сайты под ключ</h3>
+          <p>Fullstack веб-разработка (Laravel + Vue.js), интернет-магазины, корпоративные порталы, админки. Интеграция с 1С, платежными системами, высокая производительность.</p>
+          <div class="tech-stack"><span class="tech-badge">Fullstack</span><span class="tech-badge">Security</span><span class="tech-badge">Api</span></div>
         </div>
-    </section>
+        <div class="service-card reveal">
+          <div class="service-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+          <h3>DevOps & CI/CD</h3>
+          <p>Настройка серверов (Ubuntu/Nginx), контейнеризация, GitLab CI/CD, мониторинг, кэширование Redis, SSL, оптимизация скорости загрузки (2.5с → 0.9с).</p>
+          <div class="tech-stack"><span class="tech-badge">Docker</span><span class="tech-badge">GitLab CI</span><span class="tech-badge">Redis</span></div>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon"><i class="fas fa-terminal"></i></div>
+          <h3>C++ программы</h3>
+          <p>Разработка эксплойтов, утилит для автоматизации пентеста, инструментов анализа трафика, высокопроизводительных модулей и бэкенд-сервисов.</p>
+          <div class="tech-stack"><span class="tech-badge">Exploit Dev</span><span class="tech-badge">Reverse Shell</span><span class="tech-badge">Bash/C++</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-        <p>Whyasd, Copyright © 2026</p>
-    </footer>
+  <!-- НАВЫКИ (детально) -->
+  <section class="section" id="skills" style="background: radial-gradient(circle at 20% 30%, rgba(230,57,70,0.02), transparent);">
+    <div class="container">
+      <div class="section-tag">ТЕХНОЛОГИЧЕСКИЙ СТЭК</div>
+      <h2 class="section-title">Инструменты & компетенции</h2>
+      <div class="grid-2">
+        <div class="skill-card reveal">
+          <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Кибербезопасность</h3>
+          <div class="tech-stack" style="margin: 18px 0;">
+            <span class="tech-badge">Nmap</span><span class="tech-badge">Wireshark</span><span class="tech-badge">Metasploit</span>
+            <span class="tech-badge">Burp Suite</span><span class="tech-badge">SQLmap</span><span class="tech-badge">Responder</span>
+            <span class="tech-badge">Mimikatz</span><span class="tech-badge">CrackMapExec</span><span class="tech-badge">MITRE ATT&CK</span>
+          </div>
+          <p>Active Directory: Kerberoasting, AS-REP Roast, Pass-the-Hash, NTLM Relay. Веб-уязвимости: SQLi, XSS, SSRF, RCE, IDOR. Создание reverse shell, обход AV, OSINT.</p>
+        </div>
+        <div class="skill-card reveal">
+          <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+          <h3>Разработка & DevOps</h3>
+          <div class="tech-stack" style="margin: 18px 0;">
+            <span class="tech-badge">Laravel</span><span class="tech-badge">Vue.js</span><span class="tech-badge">PostgreSQL</span>
+            <span class="tech-badge">Redis</span><span class="tech-badge">Nginx</span><span class="tech-badge">Docker</span>
+            <span class="tech-badge">GitLab CI/CD</span><span class="tech-badge">Bash</span><span class="tech-badge">C++</span>
+          </div>
+          <p>API, Любые интеграции, SIEM, Splunk. Оптимизация SQL, кэширование, HTTP/2, brotli. Автоматизация деплоя, мониторинг (htop, Sentry).</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ОПЫТ РАБОТЫ -->
+  <section class="section" id="exp">
+    <div class="container">
+      <div class="section-tag">ПРОФЕССИОНАЛЬНЫЙ ПУТЬ</div>
+      <h2 class="section-title">Опыт 2 года 9 месяцев</h2>
+      <div class="exp-card reveal">
+        <div class="exp-title">Pentester — SecLab Solutions (Москва)</div>
+        <div class="exp-date">Сентябрь 2025 — Март 2026</div>
+        <div class="exp-desc">Провёл 12+ успешных пентест-сессий. Сканирование сетей, атаки на Active Directory (Kerberoasting, Pass-the-Hash, AS-REP Roast), эксплуатация веб-приложений. Нашёл 2 критические RCE, полный захват домена через уязвимую GPO. Составление отчетов с PoC, написание эксплойтов на C++/Bash.</div>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-title">Fullstack-разработчик & DevOps — Panther Energy</div>
+        <div class="exp-date">Июль 2023 — Август 2025</div>
+        <div class="exp-desc">Разработка интернет-магазина на Laravel + Vue.js + PostgreSQL. Интеграция 1С, ЮKassa, СДЭК. Настроил CI/CD, Redis, оптимизировал скорость загрузки с 2.5 до 0.9 секунд. Администрирование серверов Ubuntu/Nginx, внедрил безопасность, мониторинг трафика и логирование.</div>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-title">Сертификаты и достижения</div>
+        <div class="exp-date">TryHackMe · Red Team · CTF</div>
+        <div class="exp-desc"> Первое место по России на TryHackMe King of the Hill. Сертификаты: Red Team (2026), Jr Penetration Tester (2025), Web Fundamentals. Топ 1% пользователей платформы.</div>
+        <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1637528" style='border:none;'></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- КОНТАКТЫ + TRYHACKME ВИДЖЕТ (без формы) -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="widget-container">
+        <div class="glass-card reveal">
+          <i class="fas fa-flag-checkered" style="font-size: 40px; color: var(--red-glow); margin-bottom: 20px; display: inline-block;"></i>
+          <h3 style="font-size: 28px; margin-bottom: 12px;">TryHackMe профиль</h3>
+          <p>Активный CTF player, red team enthusiast. Рейтинг Top 1% РФ, первое место KoTH. Ежедневно практикуюсь в лабораториях и улучшаю навыки.</p>
+          <a href="https://tryhackme.com/p/whyasd666" target="_blank" class="thm-link">
+            <i class="fab fa-tryhackme"></i> tryhackme.com/p/whyasd666
+            <i class="fas fa-external-link-alt" style="font-size: 12px;"></i>
+          </a>
+        </div>
+        <div class="glass-card reveal">
+          <i class="fas fa-address-card" style="font-size: 40px; color: var(--red-glow); margin-bottom: 20px;"></i>
+          <h3 style="font-size: 28px; margin-bottom: 12px;">Связь без заявок</h3>
+          <p>Позвоните, напишите в Telegram или email — я отвечаю оперативно. Работаю на результат.</p>
+          <div style="margin: 24px 0; display: flex; flex-direction: column; gap: 14px;">
+            <div><i class="fas fa-phone" style="color: var(--red-glow); width: 28px;"></i> <a href="tel:+79187890009" style="color: white;">+7 (918) 789-0009</a></div>
+            <div><i class="fas fa-envelope" style="color: var(--red-glow); width: 28px;"></i> <a href="mailto:messdope@mail.ru" style="color: white;">messdope@mail.ru</a></div>
+            <div><i class="fab fa-telegram" style="color: var(--red-glow); width: 28px;"></i> <a href="https://t.me/whyasd666" target="_blank" style="color: white;">@whyasd666</a></div>
+          </div>
+          <a href="#" onclick="alert('Резюме доступно для скачивания по запросу или приложено в исходном сообщении'); return false;" class="btn-outline" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 40px; border: 1px solid var(--border-glow); text-decoration: none; color: white; font-weight: 500; transition: 0.2s; width: 100%;"><i class="fas fa-download"></i> Скачать резюме (PDF)</a>
+          <p style="font-size: 12px; color: #6a6a7a; margin-top: 18px;">Резюме прикреплено к портфолио — полный стек и рекомендации.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>© 2025 whyasd — Информационная безопасность, пентест, веб-разработка</p>
+    <p style="margin-top: 8px; letter-spacing: 0.5px;">Red Team · Fullstack · DevSecOps · C++</p>
+  </div>
+</footer>
+
+<script>
+  // хедер скролл
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 30);
+  });
+  // мобильное меню
+  const burger = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const closeMenu = document.getElementById('closeMenuBtn');
+  burger.addEventListener('click', () => mobileMenu.classList.add('open'));
+  closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+  // плавный скролл
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId === "#") return;
+      const target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (mobileMenu.classList.contains('open')) mobileMenu.classList.remove('open');
+      }
+    });
+  });
+  // Reveal анимации
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
