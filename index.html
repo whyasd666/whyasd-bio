@@ -1,653 +1,1897 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Whyasd</title>
-  <link rel="icon" href="icon.jpg" type="image/x-icon">
-  <meta name="description" content="whyasd: специалист по информационной безопасности, пентестер, fullstack-разработчик. Пентест, сайты под ключ, DevOps, C++.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whyasd</title>
+<link rel="icon" href="icon.jpg" type="image/x-icon">
+<meta name="description" content="Пентестер, Full Stack разработчик, CTF игрок #1 в России на TryHackMe KoTH. Пятигорск.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Unbounded:wght@300;400;700;900&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red:       #FF1A1A;
+    --red-dim:   #CC0000;
+    --red-glow:  rgba(255,26,26,0.18);
+    --red-trace: rgba(255,26,26,0.06);
+    --bg:        #080808;
+    --bg2:       #0E0E0E;
+    --bg3:       #131313;
+    --line:      rgba(255,26,26,0.15);
+    --line2:     rgba(255,255,255,0.05);
+    --text:      #E8E8E8;
+    --muted:     #666672;
+    --mono:      'Share Tech Mono', monospace;
+    --display:   'Unbounded', sans-serif;
+    --body:      'Space Grotesk', sans-serif;
+  }
 
-    body {
-      background-color: #050507;
-      font-family: 'Space Grotesk', sans-serif;
-      color: #f0f0f0;
-      line-height: 1.4;
-      overflow-x: hidden;
-    }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
-    /* красная неоновая тема */
-    :root {
-      --red-glow: #E63946;
-      --red-dark: #9b1d2c;
-      --red-soft: #ff4d6d;
-      --bg-surface: rgba(12, 12, 16, 0.7);
-      --border-glow: rgba(230, 57, 70, 0.3);
-      --shadow-red: 0 0 12px rgba(230, 57, 70, 0.4);
-    }
+  body {
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    cursor: none;
+  }
 
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 30px;
-    }
+  /* ── CUSTOM CURSOR ─────────────────────────────── */
+  .cursor {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+  }
+  .cursor-dot {
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+  }
+  .cursor-ring {
+    width: 32px; height: 32px;
+    border: 1px solid var(--red);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    transition: transform 0.12s ease, width 0.2s, height 0.2s, border-color 0.2s;
+    opacity: 0.6;
+  }
+  .cursor-ring.expand { width: 56px; height: 56px; border-color: rgba(255,26,26,0.4); }
 
-    /* кастомный скролл */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0a0a0c;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--red-glow);
-      border-radius: 6px;
-    }
+  /* ── SCANLINES OVERLAY ─────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.08) 2px,
+      rgba(0,0,0,0.08) 4px
+    );
+    pointer-events: none;
+    z-index: 1000;
+  }
 
-    /* хедер */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 20px 0;
-      z-index: 100;
-      transition: 0.3s ease;
-    }
-    .header.scrolled {
-      background: rgba(5, 5, 7, 0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(230, 57, 70, 0.3);
-    }
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -1px;
-      background: linear-gradient(135deg, #fff, var(--red-glow));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 8px rgba(230,57,70,0.3);
-    }
-    .nav-links {
-      display: flex;
-      gap: 36px;
-    }
-    .nav-links a {
-      color: #bbb;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 14px;
-      transition: 0.2s;
-      letter-spacing: 0.5px;
-    }
-    .nav-links a:hover {
-      color: var(--red-glow);
-      text-shadow: 0 0 6px var(--red-glow);
-    }
-    .burger {
-      display: none;
-      flex-direction: column;
-      gap: 6px;
-      cursor: pointer;
-    }
-    .burger span {
-      width: 26px;
-      height: 2px;
-      background: white;
-      border-radius: 2px;
-      transition: 0.2s;
-    }
+  /* ── NOISE TEXTURE ─────────────────────────────── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
 
-    /* мобильное меню */
-    .mobile-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 280px;
-      height: 100%;
-      background: #08080c;
-      backdrop-filter: blur(20px);
-      z-index: 200;
-      padding: 100px 30px;
-      transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      border-left: 1px solid var(--border-glow);
-    }
-    .mobile-menu.open {
-      right: 0;
-    }
-    .mobile-menu a {
-      display: block;
-      color: #ddd;
-      font-size: 22px;
-      margin-bottom: 28px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.2s;
-    }
-    .mobile-menu a:hover {
-      color: var(--red-glow);
-    }
-    .close-menu {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 28px;
-      cursor: pointer;
-    }
+  /* ── GRID BACKGROUND ───────────────────────────── */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line2) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 20%, transparent 100%);
+  }
 
-    /* hero */
+  /* ── NAV ───────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid transparent;
+    transition: all 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(8,8,8,0.94);
+    backdrop-filter: blur(16px);
+    border-bottom-color: var(--line);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--red);
+    letter-spacing: 0.1em;
+  }
+  .nav-logo span { color: var(--muted); }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--red);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── HERO ──────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    min-height: calc(var(--real-vh, 1vh) * 100);
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 120px 40px 80px;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(255,26,26,0.07) 0%, transparent 65%);
+    top: 50%; left: -10%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .hero-glow-2 {
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,26,26,0.04) 0%, transparent 70%);
+    bottom: 0; right: 5%;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--red);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--red);
+  }
+
+  .hero-name {
+    font-family: var(--display);
+    font-size: clamp(42px, 6vw, 76px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+  .hero-name .line-red { color: var(--red); }
+  .hero-name .line-dim { color: rgba(232,232,232,0.25); font-weight: 300; }
+
+  .hero-role {
+    font-family: var(--mono);
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 32px;
+    letter-spacing: 0.04em;
+  }
+  .hero-role .sep { color: var(--red); margin: 0 8px; }
+
+  .hero-desc {
+    font-size: 16px;
+    color: rgba(232,232,232,0.6);
+    line-height: 1.75;
+    max-width: 520px;
+    margin-bottom: 48px;
+  }
+
+  .hero-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .contact-line {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-line:hover { color: var(--red); }
+  .contact-icon {
+    width: 32px; height: 32px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .contact-line:hover .contact-icon {
+    border-color: var(--red);
+    background: var(--red-glow);
+  }
+  .contact-icon svg { width: 14px; height: 14px; }
+
+  /* ── HERO RIGHT — TERMINAL CARD ────────────────── */
+  .terminal-card {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(255,26,26,0.08), 0 0 120px rgba(0,0,0,0.5);
+  }
+  .terminal-bar {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .term-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .term-dot.red   { background: #FF5F57; }
+  .term-dot.yel   { background: #FFBD2E; }
+  .term-dot.grn   { background: #28C840; }
+  .term-title {
+    margin-left: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .terminal-body {
+    padding: 20px 20px 24px;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .t-line { display: block; }
+  .t-prompt { color: var(--red); }
+  .t-cmd    { color: #E8E8E8; }
+  .t-out    { color: var(--muted); padding-left: 16px; }
+  .t-green  { color: #4ADE80; }
+  .t-red2   { color: var(--red); }
+  .t-cursor {
+    display: inline-block;
+    width: 8px; height: 14px;
+    background: var(--red);
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+    margin-left: 2px;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ── SECTION BASE ──────────────────────────────── */
+  section {
+    position: relative;
+    z-index: 2;
+    padding: 100px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-full {
+    max-width: none;
+    background: var(--bg2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .section-full > .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 40px;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--red);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--red);
+    opacity: 0.5;
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .section-sub {
+    font-size: 16px;
+    color: var(--muted);
+    margin-bottom: 60px;
+    line-height: 1.6;
+  }
+
+  /* ── ABOUT / STATS ─────────────────────────────── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 60px;
+  }
+  .stat-box {
+    background: var(--bg);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: var(--display);
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-lbl {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .about-card {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .about-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .about-card:hover { border-color: rgba(255,26,26,0.3); box-shadow: 0 0 30px var(--red-glow); }
+  .about-card:hover::before { transform: scaleX(1); }
+  .about-card h3 {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--red);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .about-card p {
+    font-size: 15px;
+    color: rgba(232,232,232,0.7);
+    line-height: 1.7;
+  }
+
+  /* ── SKILLS ────────────────────────────────────── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .skill-group {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 28px;
+    transition: border-color 0.3s;
+  }
+  .skill-group:hover { border-color: rgba(255,26,26,0.3); }
+  .skill-group-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--red);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .stag {
+    padding: 5px 12px;
+    background: rgba(255,26,26,0.06);
+    border: 1px solid rgba(255,26,26,0.2);
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: rgba(232,232,232,0.8);
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .stag:hover {
+    background: rgba(255,26,26,0.15);
+    border-color: rgba(255,26,26,0.5);
+    color: var(--red);
+  }
+  .stag.hot {
+    background: rgba(255,26,26,0.12);
+    border-color: rgba(255,26,26,0.4);
+    color: var(--red);
+    font-weight: 600;
+  }
+
+  /* ── SERVICES ──────────────────────────────────── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .svc-card {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  }
+  .svc-card::after {
+    content: attr(data-num);
+    position: absolute;
+    top: 20px; right: 24px;
+    font-family: var(--display);
+    font-size: 72px;
+    font-weight: 900;
+    color: rgba(255,26,26,0.05);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .svc-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,26,26,0.35);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,26,26,0.08);
+  }
+  .svc-icon {
+    width: 48px; height: 48px;
+    border: 1px solid rgba(255,26,26,0.3);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    background: rgba(255,26,26,0.06);
+    color: var(--red);
+  }
+  .svc-icon svg { width: 22px; height: 22px; }
+  .svc-card h3 {
+    font-family: var(--display);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .svc-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .svc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .svc-list li {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: rgba(232,232,232,0.5);
+    padding-left: 16px;
+    position: relative;
+  }
+  .svc-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--red);
+  }
+
+  /* ── EXPERIENCE ────────────────────────────────── */
+  .exp-timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+  .exp-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--red), transparent);
+  }
+  .exp-item {
+    position: relative;
+    margin-bottom: 52px;
+  }
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: -36px; top: 8px;
+    width: 8px; height: 8px;
+    border: 1px solid var(--red);
+    border-radius: 50%;
+    background: var(--bg);
+    box-shadow: 0 0 8px var(--red);
+  }
+  .exp-period {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--red);
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .exp-title {
+    font-family: var(--display);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .exp-company {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .exp-body {
+    font-size: 15px;
+    color: rgba(232,232,232,0.65);
+    line-height: 1.75;
+    max-width: 700px;
+  }
+  .exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .exp-tag {
+    padding: 3px 10px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ── TRYHACKME ─────────────────────────────────── */
+  .thm-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .thm-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .thm-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .thm-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: rgba(255,26,26,0.06);
+    border: 1px solid rgba(255,26,26,0.2);
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: rgba(232,232,232,0.7);
+  }
+  .thm-badge-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 6px var(--red);
+    flex-shrink: 0;
+  }
+  .thm-rank {
+    font-family: var(--display);
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--red);
+    line-height: 1;
+    margin: 16px 0 8px;
+  }
+  .thm-platform-box {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .thm-platform-box::before {
+    content: 'TRYHACKME';
+    position: absolute;
+    top: 20px; right: 20px;
+    font-family: var(--display);
+    font-size: 48px;
+    font-weight: 900;
+    color: rgba(255,26,26,0.04);
+    line-height: 1;
+  }
+  .thm-widget-placeholder {
+    background: rgba(255,26,26,0.03);
+    border: 1px dashed rgba(255,26,26,0.2);
+    border-radius: 8px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .thm-widget-placeholder p {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .thm-widget-placeholder a {
+    color: var(--red);
+    text-decoration: none;
+  }
+  .thm-widget-placeholder a:hover { text-decoration: underline; }
+  /* Место для реального виджета TryHackMe */
+  .thm-widget-real {
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+
+  /* ── CERTS ─────────────────────────────────────── */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .cert-card {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cert-card:hover {
+    border-color: rgba(255,26,26,0.4);
+    transform: translateY(-3px);
+  }
+  .cert-year {
+    font-family: var(--display);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: 0.2em;
+    margin-bottom: 10px;
+  }
+  .cert-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .cert-issuer {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .cert-svg-icon {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255,26,26,0.3);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px;
+    background: rgba(255,26,26,0.06);
+    color: var(--red);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .cert-svg-icon svg { width: 20px; height: 20px; }
+  .cert-card:hover .cert-svg-icon {
+    background: rgba(255,26,26,0.14);
+    border-color: rgba(255,26,26,0.5);
+  }
+
+  /* ── CONTACT SECTION ───────────────────────────── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .contact-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .ccard {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px 24px;
+    text-decoration: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .ccard:hover {
+    border-color: rgba(255,26,26,0.4);
+    box-shadow: 0 0 30px rgba(255,26,26,0.06);
+  }
+  .ccard-icon {
+    width: 44px; height: 44px;
+    background: rgba(255,26,26,0.08);
+    border: 1px solid rgba(255,26,26,0.2);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--red);
+    flex-shrink: 0;
+  }
+  .ccard-icon svg { width: 20px; height: 20px; }
+  .ccard-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .ccard-val {
+    font-family: var(--mono);
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  .avail-box {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 36px;
+  }
+  .avail-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .avail-dot {
+    width: 10px; height: 10px;
+    background: #4ADE80;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #4ADE80;
+    animation: pulse-green 2s ease-in-out infinite;
+  }
+  @keyframes pulse-green {
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:0.5; transform:scale(0.7); }
+  }
+  .avail-status span {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: #4ADE80;
+  }
+  .avail-box h3 {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .avail-box p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .avail-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .avail-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: rgba(232,232,232,0.7);
+  }
+  .avail-item::before {
+    content: '→';
+    color: var(--red);
+  }
+
+  /* ── FOOTER ────────────────────────────────────── */
+  footer {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid var(--line);
+    padding: 28px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer p {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  footer span { color: var(--red); }
+
+  /* ── REVEAL ANIMATION ──────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.up { opacity: 1; transform: translateY(0); }
+
+  /* ── WHYASD ANIMATED TITLE ────────────────────── */
+  .hero-name {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+  }
+
+  /* Wrapper для букв */
+  .name-letters {
+    display: inline-flex;
+    gap: 0.02em;
+    position: relative;
+  }
+
+  /* Каждая буква */
+  .nl {
+    display: inline-block;
+    color: var(--red);
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(56px, 10vw, 96px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    transform: translateY(40px) skewX(-8deg);
+    animation: letterIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+    position: relative;
+    text-shadow:
+      0 0 20px rgba(255,26,26,0.6),
+      0 0 60px rgba(255,26,26,0.2);
+  }
+  .nl:nth-child(1) { animation-delay: 0.1s; }
+  .nl:nth-child(2) { animation-delay: 0.18s; }
+  .nl:nth-child(3) { animation-delay: 0.26s; }
+  .nl:nth-child(4) { animation-delay: 0.34s; }
+  .nl:nth-child(5) { animation-delay: 0.42s; }
+  .nl:nth-child(6) { animation-delay: 0.50s; }
+
+  @keyframes letterIn {
+    0%   { opacity:0; transform: translateY(40px) skewX(-8deg); }
+    60%  { opacity:1; transform: translateY(-6px) skewX(2deg); }
+    80%  { transform: translateY(3px) skewX(-1deg); }
+    100% { opacity:1; transform: translateY(0) skewX(0); }
+  }
+
+  /* Glow-пульс после появления */
+  .nl.glow-pulse {
+    animation: letterIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards,
+               namePulse 3s ease-in-out 1s infinite;
+  }
+  @keyframes namePulse {
+    0%,100% { text-shadow: 0 0 20px rgba(255,26,26,0.6), 0 0 60px rgba(255,26,26,0.2); }
+    50%     { text-shadow: 0 0 30px rgba(255,26,26,0.9), 0 0 80px rgba(255,26,26,0.4), 0 0 120px rgba(255,26,26,0.15); }
+  }
+
+  /* Глитч-слой поверх */
+  .name-glitch-wrap {
+    position: relative;
+    display: inline-block;
+  }
+  .name-glitch-wrap::before,
+  .name-glitch-wrap::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(56px, 10vw, 96px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .name-glitch-wrap::before {
+    color: rgba(255,26,26,0.7);
+    clip-path: polygon(0 20%, 100% 20%, 100% 45%, 0 45%);
+    animation: glitchA 5s infinite 1.2s;
+  }
+  .name-glitch-wrap::after {
+    color: rgba(0,220,255,0.4);
+    clip-path: polygon(0 55%, 100% 55%, 100% 78%, 0 78%);
+    animation: glitchB 5s infinite 1.2s;
+  }
+  @keyframes glitchA {
+    0%,85%,100%  { opacity:0; transform:translate(0); }
+    87%  { opacity:1; transform:translate(-4px, 1px) scaleX(1.01); }
+    89%  { opacity:1; transform:translate(4px, -2px); }
+    91%  { opacity:1; transform:translate(-2px, 0); }
+    93%  { opacity:0; }
+  }
+  @keyframes glitchB {
+    0%,85%,100%  { opacity:0; transform:translate(0); }
+    87%  { opacity:1; transform:translate(4px, -1px); }
+    89%  { opacity:1; transform:translate(-4px, 2px) scaleX(0.99); }
+    91%  { opacity:1; transform:translate(2px, 0); }
+    93%  { opacity:0; }
+  }
+
+  /* Underscore cursor после имени */
+  .name-cursor {
+    display: inline-block;
+    width: clamp(6px, 1.2vw, 10px);
+    height: clamp(48px, 8.5vw, 82px);
+    background: var(--red);
+    margin-left: 4px;
+    vertical-align: bottom;
+    box-shadow: 0 0 12px var(--red), 0 0 30px rgba(255,26,26,0.4);
+    animation: cursorBlink 1.1s step-end infinite;
+    opacity: 0;
+    animation-delay: 0.8s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes cursorBlink {
+    0%,100% { opacity:1; }
+    50%     { opacity:0; }
+  }
+
+  /* Red scan line sweep on load */
+  .name-scanline {
+    position: absolute;
+    left: -8px; right: -8px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    top: 0;
+    animation: scanSweep 0.6s ease-out 0.05s forwards;
+    opacity: 0;
+    pointer-events: none;
+  }
+  @keyframes scanSweep {
+    0%   { top: 0%;   opacity: 1; }
+    100% { top: 110%; opacity: 0; }
+  }
+
+  /* ── MOBILE MENU ───────────────────────────────── */
+  .burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    margin: -8px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .burger span {
+    width: 22px; height: 1.5px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+    display: block;
+  }
+  .burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .burger.open span:nth-child(2) { opacity: 0; }
+  .burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8,8,8,0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 400;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    padding: 20px;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-family: var(--display);
+    font-size: clamp(24px, 7vw, 36px);
+    font-weight: 700;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .mobile-nav a:hover, .mobile-nav a:active { color: var(--red); }
+  .mobile-close {
+    position: absolute;
+    top: 20px; right: 24px;
+    font-size: 24px;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 8px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ── RESPONSIVE ────────────────────────────────── */
+
+  /* Large tablet */
+  @media(max-width: 1024px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 0; }
+    .terminal-card { display: none; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .thm-inner { grid-template-columns: 1fr; gap: 40px; }
+    .certs-grid { grid-template-columns: repeat(2, 1fr); }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .exp-timeline { padding-left: 24px; }
+  }
+
+  /* Tablet */
+  @media(max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .burger { display: flex; }
+
+    section { padding: 56px 20px; }
+    .section-full > .inner { padding: 56px 20px; }
     .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
+      padding: 88px 20px 56px;
+      min-height: auto;
     }
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background: radial-gradient(circle at 70% 30%, rgba(230,57,70,0.12) 0%, transparent 55%);
-    }
-    .animated-grid {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(rgba(230,57,70,0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(230,57,70,0.1) 1px, transparent 1px);
-      background-size: 50px 50px;
-      animation: drift 20s linear infinite;
-      opacity: 0.4;
-    }
-    @keyframes drift {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(50px, 50px); }
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-    }
-    .hero-tag {
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      color: var(--red-glow);
-      margin-bottom: 20px;
-      font-weight: 500;
-    }
-    .hero-name {
-      font-size: clamp(48px, 8vw, 100px);
-      font-weight: 800;
-      line-height: 1;
-      background: linear-gradient(135deg, #fff, var(--red-glow) 70%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 20px;
-    }
-    .hero-title {
-      font-size: 24px;
-      color: #ccc;
-      margin-bottom: 24px;
-      border-left: 3px solid var(--red-glow);
-      padding-left: 20px;
-    }
-    .hero-desc {
-      font-size: 16px;
-      color: #a0a0b0;
-      max-width: 560px;
-      margin-bottom: 36px;
-      line-height: 1.6;
-    }
-    .hero-contacts {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      margin-bottom: 36px;
-    }
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(20, 20, 28, 0.7);
-      backdrop-filter: blur(8px);
-      padding: 10px 20px;
-      border-radius: 60px;
-      border: 1px solid rgba(230,57,70,0.2);
-      transition: 0.2s;
-    }
-    .contact-item i {
-      color: var(--red-glow);
-      font-size: 16px;
-    }
-    .contact-item a {
-      color: #f0f0f0;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-    }
-    .contact-item:hover {
-      border-color: var(--red-glow);
-      transform: translateY(-2px);
-      box-shadow: 0 0 12px rgba(230,57,70,0.2);
-    }
-    /* кнопки в hero удалены по требованию */
+    .hero-tag { font-size: 10px; }
+    .hero-role { font-size: 13px; }
+    .hero-desc { font-size: 15px; }
+    .hero-contacts { gap: 10px; }
 
-    /* общие секции */
-    .section {
-      padding: 100px 0;
-      position: relative;
-    }
-    .section-tag {
-      font-size: 12px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--red-glow);
-      margin-bottom: 16px;
-    }
-    .section-title {
-      font-size: clamp(32px, 5vw, 52px);
-      font-weight: 700;
-      margin-bottom: 20px;
-      background: linear-gradient(135deg, #fff, #e0e0e0);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .grid-2, .grid-3 {
-      display: grid;
-      gap: 30px;
-      margin-top: 40px;
-    }
-    .grid-2 { grid-template-columns: repeat(2, 1fr); }
-    .grid-3 { grid-template-columns: repeat(3, 1fr); }
-    .service-card, .skill-card {
-      background: rgba(12, 12, 16, 0.6);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(230, 57, 70, 0.15);
-      border-radius: 28px;
-      padding: 32px;
-      transition: 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    }
-    .service-card:hover, .skill-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--red-glow);
-      box-shadow: 0 20px 35px -12px rgba(230,57,70,0.2);
-    }
-    .service-icon {
-      font-size: 34px;
-      color: var(--red-glow);
-      margin-bottom: 20px;
-    }
-    .service-card h3 {
-      font-size: 24px;
-      margin-bottom: 12px;
-    }
-    .service-card p {
-      color: #a5a5b5;
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 18px;
-    }
-    .tech-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 12px;
-    }
-    .tech-badge {
-      background: rgba(230,57,70,0.12);
-      padding: 4px 12px;
-      border-radius: 50px;
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--red-glow);
-      letter-spacing: 0.3px;
-    }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .stat-box { padding: 24px 16px; }
+    .stat-num { font-size: 32px; }
 
-    /* опыт */
-    .exp-card {
-      background: rgba(10, 10, 14, 0.8);
-      border-left: 4px solid var(--red-glow);
-      border-radius: 20px;
-      padding: 28px;
-      margin-bottom: 24px;
-      backdrop-filter: blur(4px);
-    }
-    .exp-title {
-      font-size: 22px;
-      font-weight: 700;
-    }
-    .exp-date {
-      color: var(--red-glow);
-      font-size: 13px;
-      margin: 8px 0 14px;
-    }
-    .exp-desc {
-      color: #b0b0c0;
-      font-size: 14px;
-      line-height: 1.6;
-    }
+    .about-grid { grid-template-columns: 1fr; gap: 16px; }
+    .about-card { padding: 22px; }
 
-    /* виджет tryhackme и контакты */
-    .widget-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      margin-top: 40px;
-    }
-    .glass-card {
-      background: rgba(8, 8, 12, 0.7);
-      backdrop-filter: blur(12px);
-      border-radius: 36px;
-      border: 1px solid rgba(230,57,70,0.25);
-      padding: 40px;
-      transition: 0.3s;
-    }
-    .thm-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: #111;
-      padding: 14px 28px;
-      border-radius: 60px;
-      margin-top: 20px;
-      text-decoration: none;
-      color: white;
-      font-weight: 600;
-      border: 1px solid var(--border-glow);
-    }
-    .thm-link i {
-      color: var(--red-glow);
-      font-size: 20px;
-    }
-    .thm-link:hover {
-      background: var(--red-glow);
-      color: #050507;
-      border-color: var(--red-glow);
-    }
+    .skills-grid { grid-template-columns: 1fr; gap: 14px; }
+    .skill-group { padding: 20px; }
 
-    /* footer */
-    .footer {
-      border-top: 1px solid rgba(230,57,70,0.2);
-      padding: 40px 0;
-      text-align: center;
-      color: #777;
-      font-size: 13px;
-    }
+    .services-grid { grid-template-columns: 1fr; gap: 16px; }
+    .svc-card { padding: 28px 24px; }
+    .svc-card::after { font-size: 48px; }
 
-    /* анимация появления */
-    .reveal {
-      opacity: 0;
-      transform: translateY(35px);
-      transition: 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.1);
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .exp-timeline { padding-left: 20px; }
+    .exp-item { margin-bottom: 36px; }
+    .exp-item::before { left: -26px; }
+    .exp-title { font-size: 17px; }
+    .exp-body { font-size: 14px; }
 
-    @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .burger { display: flex; }
-      .grid-2, .grid-3, .widget-container {
-        grid-template-columns: 1fr;
-      }
-      .hero-contacts {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .container {
-        padding: 0 20px;
-      }
-    }
-    @media (max-width: 550px) {
-      .hero-contacts {
-        width: 100%;
-      }
-      .contact-item {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-  </style>
+    .thm-inner { padding: 56px 20px; gap: 32px; }
+    .thm-rank { font-size: 40px; }
+    .thm-platform-box { padding: 24px; }
+
+    .certs-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .cert-card { padding: 20px 16px; }
+
+    .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+    .ccard { padding: 16px 18px; gap: 14px; }
+    .avail-box { padding: 28px 24px; }
+
+    footer { flex-direction: column; gap: 6px; text-align: center; padding: 20px; }
+    footer p { font-size: 11px; }
+
+    body { cursor: auto; }
+    .cursor-dot, .cursor-ring { display: none; }
+  }
+
+  /* Mobile */
+  @media(max-width: 480px) {
+    nav { padding: 12px 16px; }
+    .nav-logo { font-size: 11px; }
+
+    section { padding: 48px 16px; }
+    .section-full > .inner { padding: 48px 16px; }
+    .hero { padding: 80px 16px 48px; }
+
+    .hero-desc { font-size: 14px; margin-bottom: 32px; }
+    .contact-line { font-size: 13px; }
+    .contact-icon { width: 28px; height: 28px; }
+
+    .section-title { font-size: 24px; }
+    .section-sub { font-size: 14px; margin-bottom: 36px; }
+
+    .stats-row { gap: 1px; }
+    .stat-box { padding: 20px 12px; }
+    .stat-num { font-size: 28px; }
+    .stat-lbl { font-size: 10px; }
+
+    .about-card { padding: 18px; }
+    .about-card p { font-size: 14px; }
+
+    .skill-group { padding: 16px; }
+    .stag { font-size: 11px; padding: 4px 10px; }
+
+    .svc-card { padding: 24px 18px; }
+    .svc-card::after { display: none; }
+    .svc-card h3 { font-size: 16px; }
+    .svc-list li { font-size: 13px; }
+
+    .exp-tags { gap: 6px; }
+    .exp-tag { font-size: 10px; }
+
+    .thm-inner { padding: 48px 16px; }
+    .thm-rank { font-size: 36px; }
+    .thm-badge { font-size: 11px; padding: 8px 12px; }
+    .thm-platform-box { padding: 18px; }
+
+    .certs-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .cert-card { padding: 16px 12px; }
+    .cert-svg-icon { width: 32px; height: 32px; margin-bottom: 10px; }
+    .cert-name { font-size: 12px; }
+
+    .ccard-val { font-size: 13px; }
+    .avail-box { padding: 22px 18px; }
+    .avail-box h3 { font-size: 18px; }
+    .avail-box p { font-size: 14px; }
+
+    .mobile-nav { gap: 20px; }
+  }
+
+  /* Очень маленькие экраны */
+  @media(max-width: 360px) {
+    .hero { padding: 76px 14px 44px; }
+    section { padding: 40px 14px; }
+    .section-full > .inner { padding: 40px 14px; }
+    .certs-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Touch — убираем hover-эффекты */
+  @media(hover: none) {
+    .about-card:hover,
+    .skill-group:hover,
+    .svc-card:hover,
+    .cert-card:hover { transform: none; box-shadow: none; border-color: var(--line); }
+    .about-card:hover::before { transform: scaleX(0); }
+    .svc-card:hover { transform: none; }
+    .stag:hover { background: rgba(255,26,26,0.06); border-color: rgba(255,26,26,0.2); color: rgba(232,232,232,0.8); }
+    .nl.glow-pulse { animation: letterIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards, namePulse 3s ease-in-out 1s infinite; }
+  }
+
+  /* Prefer-reduced-motion */
+  @media(prefers-reduced-motion: reduce) {
+    .nl { animation: none !important; opacity: 1; transform: none; }
+    .name-glitch-wrap::before, .name-glitch-wrap::after { animation: none !important; }
+    .name-cursor { animation: none !important; opacity: 1; }
+    .name-scanline { animation: none !important; }
+    .reveal { transition: none; }
+    .ticker-track { animation: none; }
+  }
+</style>
 </head>
 <body>
 
-<div class="mobile-menu" id="mobileMenu">
-  <button class="close-menu" id="closeMenuBtn"><i class="fas fa-times"></i></button>
-  <a href="#home">Главная</a>
-  <a href="#services">Услуги</a>
-  <a href="#skills">Навыки</a>
-  <a href="#exp">Опыт</a>
-  <a href="#contact">Контакты</a>
+<div class="grid-bg"></div>
+
+<!-- Custom cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <span class="mobile-close" id="mobileClose">✕</span>
+  <a href="#about" onclick="closeMob()">обо мне</a>
+  <a href="#skills" onclick="closeMob()">навыки</a>
+  <a href="#services" onclick="closeMob()">услуги</a>
+  <a href="#experience" onclick="closeMob()">опыт</a>
+  <a href="#tryhackme" onclick="closeMob()">tryhackme</a>
+  <a href="#contact" onclick="closeMob()">контакт</a>
 </div>
 
-<header class="header" id="header">
-  <div class="container">
-    <nav class="nav">
-      <div class="logo">whyasd</div>
-      <div class="nav-links">
-        <a href="#home">Главная</a>
-        <a href="#services">Услуги</a>
-        <a href="#skills">Навыки</a>
-        <a href="#exp">Опыт</a>
-        <a href="#contact">Контакты</a>
-      </div>
-      <div class="burger" id="burgerBtn">
-        <span></span><span></span><span></span>
-      </div>
-    </nav>
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-logo">whyasd@sec<span>:~$</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">обо мне</a></li>
+    <li><a href="#skills">навыки</a></li>
+    <li><a href="#services">услуги</a></li>
+    <li><a href="#experience">опыт</a></li>
+    <li><a href="#tryhackme">tryhackme</a></li>
+    <li><a href="#contact">контакт</a></li>
+  </ul>
+  <div class="burger" id="burgerBtn">
+    <span></span><span></span><span></span>
   </div>
-</header>
+</nav>
 
-<main>
-  <!-- HERO (без кнопок "Услуги" и "Контакты") -->
-  <section class="hero" id="home">
-    <div class="hero-bg"></div>
-    <div class="animated-grid"></div>
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-tag">// RED TEAM · FULLSTACK · DEVSECOPS</div>
-        <h1 class="hero-name">whyasd</h1>
-        <div class="hero-title">Специалист по информационной безопасности & разработчик</div>
-        <p class="hero-desc">Пентестер с опытом более 3 лет</p>
-        <p>Fullstack-разработчик (Web / c++) DevOps инженер.</p>
-        <p>Первое место TryHackMe KoTH Россия, сертифицированный Red Team</p>
-        <p>Провожу аудит безопасности, разрабатываю сайты и высоконагруженные решения.</p></div>
-        <div class="hero-contacts">
-          <div class="contact-item"><i class="fas fa-phone-alt"></i><a href="tel:+79187890009">+7 (918) 789-0009</a></div>
-          <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:messdope@mail.ru">messdope@mail.ru</a></div>
-          <div class="contact-item"><i class="fab fa-telegram"></i><a href="https://t.me/whyasd666" target="_blank">@whyasd666</a></div>
-        </div>
-        <!-- Кнопки удалены полностью -->
-      </div>
-    </div>
-  </section>
-
-  <!-- УСЛУГИ (пентест, сайты, devops, c++) -->
-  <section class="section" id="services">
-    <div class="container">
-      <div class="section-tag">ЧТО Я ПРЕДЛАГАЮ</div>
-      <h2 class="section-title">Экспертиза на стыке<br>безопасности и разработки</h2>
-      <div class="grid-3">
-        <div class="service-card reveal">
-          <div class="service-icon"><i class="fas fa-skull-crossbones"></i></div>
-          <h3>Пентест (Red Team)</h3>
-          <p>Внутренний / внешний аудит, взлом Active Directory, веб-пентест (OWASP Top 10), эмуляция APT, социальная инженерия. Полный цикл от OSINT до закрепления.</p>
-          <div class="tech-stack"><span class="tech-badge">Metasploit</span><span class="tech-badge">Cobalt Strike</span><span class="tech-badge">Burp Suite</span></div>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon"><i class="fas fa-code"></i></div>
-          <h3>Сайты под ключ</h3>
-          <p>Fullstack веб-разработка (Laravel + Vue.js), интернет-магазины, корпоративные порталы, админки. Интеграция с 1С, платежными системами, высокая производительность.</p>
-          <div class="tech-stack"><span class="tech-badge">Fullstack</span><span class="tech-badge">Security</span><span class="tech-badge">Api</span></div>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-          <h3>DevOps & CI/CD</h3>
-          <p>Настройка серверов (Ubuntu/Nginx), контейнеризация, GitLab CI/CD, мониторинг, кэширование Redis, SSL, оптимизация скорости загрузки (2.5с → 0.9с).</p>
-          <div class="tech-stack"><span class="tech-badge">Docker</span><span class="tech-badge">GitLab CI</span><span class="tech-badge">Redis</span></div>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon"><i class="fas fa-terminal"></i></div>
-          <h3>C++ программы</h3>
-          <p>Разработка эксплойтов, утилит для автоматизации пентеста, инструментов анализа трафика, высокопроизводительных модулей и бэкенд-сервисов.</p>
-          <div class="tech-stack"><span class="tech-badge">Exploit Dev</span><span class="tech-badge">Reverse Shell</span><span class="tech-badge">Bash/C++</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- НАВЫКИ (детально) -->
-  <section class="section" id="skills" style="background: radial-gradient(circle at 20% 30%, rgba(230,57,70,0.02), transparent);">
-    <div class="container">
-      <div class="section-tag">ТЕХНОЛОГИЧЕСКИЙ СТЭК</div>
-      <h2 class="section-title">Инструменты & компетенции</h2>
-      <div class="grid-2">
-        <div class="skill-card reveal">
-          <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
-          <h3>Кибербезопасность</h3>
-          <div class="tech-stack" style="margin: 18px 0;">
-            <span class="tech-badge">Nmap</span><span class="tech-badge">Wireshark</span><span class="tech-badge">Metasploit</span>
-            <span class="tech-badge">Burp Suite</span><span class="tech-badge">SQLmap</span><span class="tech-badge">Responder</span>
-            <span class="tech-badge">Mimikatz</span><span class="tech-badge">CrackMapExec</span><span class="tech-badge">MITRE ATT&CK</span>
+<!-- ═══ HERO ═══════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Pentester · Developer · CTF Player</div>
+      <h1 class="hero-name" aria-label="WHYASD">
+        <div class="name-glitch-wrap" data-text="WHYASD">
+          <div class="name-scanline"></div>
+          <div class="name-letters">
+            <span class="nl glow-pulse">W</span><span class="nl glow-pulse">H</span><span class="nl glow-pulse">Y</span><span class="nl glow-pulse">A</span><span class="nl glow-pulse">S</span><span class="nl glow-pulse">D</span>
           </div>
-          <p>Active Directory: Kerberoasting, AS-REP Roast, Pass-the-Hash, NTLM Relay. Веб-уязвимости: SQLi, XSS, SSRF, RCE, IDOR. Создание reverse shell, обход AV, OSINT.</p>
+          <span class="name-cursor"></span>
         </div>
-        <div class="skill-card reveal">
-          <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
-          <h3>Разработка & DevOps</h3>
-          <div class="tech-stack" style="margin: 18px 0;">
-            <span class="tech-badge">Laravel</span><span class="tech-badge">Vue.js</span><span class="tech-badge">PostgreSQL</span>
-            <span class="tech-badge">Redis</span><span class="tech-badge">Nginx</span><span class="tech-badge">Docker</span>
-            <span class="tech-badge">GitLab CI/CD</span><span class="tech-badge">Bash</span><span class="tech-badge">C++</span>
+      </h1>
+      <p class="hero-role">
+        Pentester<span class="sep">/</span>Full Stack Dev<span class="sep">/</span>CTF #1 RU
+      </p>
+      <p class="hero-desc">
+        20 лет. Пятигорск. Специализируюсь на тестировании на проникновение,
+        веб-разработке и DevOps. Занимаю первое место по России на TryHackMe KoTH.
+      </p>
+      <div class="hero-contacts">
+        <a class="contact-line" href="tel:+79187890009">
+          <div class="contact-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
           </div>
-          <p>API, Любые интеграции, SIEM, Splunk. Оптимизация SQL, кэширование, HTTP/2, brotli. Автоматизация деплоя, мониторинг (htop, Sentry).</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ОПЫТ РАБОТЫ -->
-  <section class="section" id="exp">
-    <div class="container">
-      <div class="section-tag">ПРОФЕССИОНАЛЬНЫЙ ПУТЬ</div>
-      <h2 class="section-title">Опыт 2 года 9 месяцев</h2>
-      <div class="exp-card reveal">
-        <div class="exp-title">Pentester — SecLab Solutions (Москва)</div>
-        <div class="exp-date">Сентябрь 2025 — Март 2026</div>
-        <div class="exp-desc">Провёл 12+ успешных пентест-сессий. Сканирование сетей, атаки на Active Directory (Kerberoasting, Pass-the-Hash, AS-REP Roast), эксплуатация веб-приложений. Нашёл 2 критические RCE, полный захват домена через уязвимую GPO. Составление отчетов с PoC, написание эксплойтов на C++/Bash.</div>
-      </div>
-      <div class="exp-card reveal">
-        <div class="exp-title">Fullstack-разработчик & DevOps — Panther Energy</div>
-        <div class="exp-date">Июль 2023 — Август 2025</div>
-        <div class="exp-desc">Разработка интернет-магазина на Laravel + Vue.js + PostgreSQL. Интеграция 1С, ЮKassa, СДЭК. Настроил CI/CD, Redis, оптимизировал скорость загрузки с 2.5 до 0.9 секунд. Администрирование серверов Ubuntu/Nginx, внедрил безопасность, мониторинг трафика и логирование.</div>
-      </div>
-      <div class="exp-card reveal">
-        <div class="exp-title">Сертификаты и достижения</div>
-        <div class="exp-date">TryHackMe · Red Team · CTF</div>
-        <div class="exp-desc"> Первое место по России на TryHackMe King of the Hill. Сертификаты: Red Team (2026), Jr Penetration Tester (2025), Web Fundamentals. Топ 1% пользователей платформы.</div>
-        <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1637528" style='border:none;'></iframe>
-      </div>
-    </div>
-  </section>
-
-  <!-- КОНТАКТЫ + TRYHACKME ВИДЖЕТ (без формы) -->
-  <section class="section" id="contact">
-    <div class="container">
-      <div class="widget-container">
-        <div class="glass-card reveal">
-          <i class="fas fa-flag-checkered" style="font-size: 40px; color: var(--red-glow); margin-bottom: 20px; display: inline-block;"></i>
-          <h3 style="font-size: 28px; margin-bottom: 12px;">TryHackMe профиль</h3>
-          <p>Активный CTF player, red team enthusiast. Рейтинг Top 1% РФ, первое место KoTH. Ежедневно практикуюсь в лабораториях и улучшаю навыки.</p>
-          <a href="https://tryhackme.com/p/whyasd666" target="_blank" class="thm-link">
-            <i class="fab fa-tryhackme"></i> tryhackme.com/p/whyasd666
-            <i class="fas fa-external-link-alt" style="font-size: 12px;"></i>
-          </a>
-        </div>
-        <div class="glass-card reveal">
-          <i class="fas fa-address-card" style="font-size: 40px; color: var(--red-glow); margin-bottom: 20px;"></i>
-          <h3 style="font-size: 28px; margin-bottom: 12px;">Связь без заявок</h3>
-          <p>Позвоните, напишите в Telegram или email — я отвечаю оперативно. Работаю на результат.</p>
-          <div style="margin: 24px 0; display: flex; flex-direction: column; gap: 14px;">
-            <div><i class="fas fa-phone" style="color: var(--red-glow); width: 28px;"></i> <a href="tel:+79187890009" style="color: white;">+7 (918) 789-0009</a></div>
-            <div><i class="fas fa-envelope" style="color: var(--red-glow); width: 28px;"></i> <a href="mailto:messdope@mail.ru" style="color: white;">messdope@mail.ru</a></div>
-            <div><i class="fab fa-telegram" style="color: var(--red-glow); width: 28px;"></i> <a href="https://t.me/whyasd666" target="_blank" style="color: white;">@whyasd666</a></div>
+          +7 (918) 789-00-09
+        </a>
+        <a class="contact-line" href="mailto:messdope@mail.ru">
+          <div class="contact-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           </div>
-          <a href="#" onclick="alert('Резюме доступно для скачивания по запросу или приложено в исходном сообщении'); return false;" class="btn-outline" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 40px; border: 1px solid var(--border-glow); text-decoration: none; color: white; font-weight: 500; transition: 0.2s; width: 100%;"><i class="fas fa-download"></i> Скачать резюме (PDF)</a>
-          <p style="font-size: 12px; color: #6a6a7a; margin-top: 18px;">Резюме прикреплено к портфолио — полный стек и рекомендации.</p>
-        </div>
+          messdope@mail.ru
+        </a>
+        <a class="contact-line" href="https://t.me/whyasd666" target="_blank">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.284c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.27 13.924 4.32 13.03c-.636-.203-.647-.636.136-.94l10.89-4.198c.532-.19 1.001.13.816.956z"/></svg>
+          </div>
+          @whyasd666
+        </a>
       </div>
     </div>
-  </section>
-</main>
 
-<footer class="footer">
-  <div class="container">
-    <p>© 2025 whyasd — Информационная безопасность, пентест, веб-разработка</p>
-    <p style="margin-top: 8px; letter-spacing: 0.5px;">Red Team · Fullstack · DevSecOps · C++</p>
+    <!-- Terminal card -->
+    <div class="terminal-card">
+      <div class="terminal-bar">
+        <div class="term-dot red"></div>
+        <div class="term-dot yel"></div>
+        <div class="term-dot grn"></div>
+        <span class="term-title">whyasd@kali: ~</span>
+      </div>
+      <div class="terminal-body">
+        <span class="t-line"><span class="t-prompt">➜</span> <span class="t-cmd">whoami</span></span>
+        <span class="t-line t-out">whyasd</span>
+        <span class="t-line" style="margin-top:8px"><span class="t-prompt">➜</span> <span class="t-cmd">cat skills.txt</span></span>
+        <span class="t-line t-out"><span class="t-green">✓</span> Penetration Testing</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> Web App Security</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> Active Directory Attacks</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> Full Stack Development</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> DevOps / Linux Admin</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> C++ / Bash Scripting</span>
+        <span class="t-line" style="margin-top:8px"><span class="t-prompt">➜</span> <span class="t-cmd">cat rank.txt</span></span>
+        <span class="t-line t-out"><span class="t-red2">#1</span> Russia — TryHackMe KoTH</span>
+        <span class="t-line" style="margin-top:8px"><span class="t-prompt">➜</span> <span class="t-cmd">./status</span></span>
+        <span class="t-line t-out"><span class="t-green">●</span> Открыт к предложениям</span>
+        <span class="t-line" style="margin-top:8px"><span class="t-prompt">➜</span> <span class="t-cmd"></span><span class="t-cursor"></span></span>
+      </div>
+    </div>
   </div>
+</div>
+
+<!-- ═══ ABOUT ═══════════════════════════════════════════ -->
+<div id="about">
+<section class="reveal">
+  <div class="section-label">01 / обо мне</div>
+  <h2 class="section-title">Кто я</h2>
+  <p class="section-sub">Пентестер, разработчик и CTF-игрок с реальным опытом боевых задач.</p>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num" data-count="12">0</div>
+      <div class="stat-lbl">Пентест-сессий</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" data-count="2">0</div>
+      <div class="stat-lbl">Критических RCE</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">#1</div>
+      <div class="stat-lbl">TryHackMe KoTH RU</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" data-count="3">0</div>
+      <div class="stat-lbl">Крупных релизов</div>
+    </div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-card">
+      <h3>// Безопасность</h3>
+      <p>Провожу внутренние и внешние пентесты. Специализируюсь на Active Directory атаках (Kerberoasting, Pass-the-Hash, AS-REP Roast), веб-уязвимостях OWASP Top 10 и реальных сценариях Red Team. Нашёл критические RCE в реальных системах, выполнил полный захват домена.</p>
+    </div>
+    <div class="about-card">
+      <h3>// Разработка</h3>
+      <p>Full Stack на PHP/Laravel + Vue.js с PostgreSQL. Писал backend API, интегрировал платёжные системы (ЮKassa), логистику (СДЭК), синхронизацию с 1С. Сократил время загрузки страниц с 2.5 до 0.9 секунды через оптимизацию кэша и HTTP/2.</p>
+    </div>
+    <div class="about-card">
+      <h3>// DevOps / Инфраструктура</h3>
+      <p>Ubuntu/Nginx сервера, GitLab CI/CD, SSL, Redis кэширование, мониторинг Sentry. Настройка виртуальных хостов, репликация PostgreSQL, автоматизация деплоя через bash и GitLab pipelines.</p>
+    </div>
+    <div class="about-card">
+      <h3>// CTF & Обучение</h3>
+      <p>Занимаю первое место по России на TryHackMe King of the Hill. Прошёл полные пути Red Team, Jr Penetration Tester, Web Fundamentals. Учусь на инженера информационных систем в Университете Иннополис (2029).</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══ SKILLS ══════════════════════════════════════════ -->
+<div class="section-full" id="skills">
+  <div class="inner reveal">
+    <div class="section-label">02 / навыки</div>
+    <h2 class="section-title">Технический стек</h2>
+    <p class="section-sub">Инструменты и технологии, с которыми работаю ежедневно.</p>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">// Пентест и ИБ</div>
+        <div class="skill-tags">
+          <span class="stag hot">Metasploit</span>
+          <span class="stag hot">Burp Suite</span>
+          <span class="stag hot">Nmap</span>
+          <span class="stag">Wireshark</span>
+          <span class="stag">SQLmap</span>
+          <span class="stag">Responder</span>
+          <span class="stag">ntlmrelayx</span>
+          <span class="stag">Nikto</span>
+          <span class="stag">Dirbuster</span>
+          <span class="stag">netcat</span>
+          <span class="stag">OSINT</span>
+          <span class="stag">dnsrecon</span>
+          <span class="stag">whois</span>
+          <span class="stag">Burp Collaborator</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">// Атаки и техники</div>
+        <div class="skill-tags">
+          <span class="stag hot">OWASP Top 10</span>
+          <span class="stag hot">Kerberoasting</span>
+          <span class="stag hot">Pass-the-Hash</span>
+          <span class="stag">AS-REP Roast</span>
+          <span class="stag">SQLi / XSS</span>
+          <span class="stag">CSRF / SSRF</span>
+          <span class="stag">IDOR / RCE</span>
+          <span class="stag">Reverse Shell</span>
+          <span class="stag">Privesc</span>
+          <span class="stag">MITRE ATT&CK</span>
+          <span class="stag">Kill Chain</span>
+          <span class="stag">Red Team</span>
+          <span class="stag">SOC</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">// Разработка</div>
+        <div class="skill-tags">
+          <span class="stag hot">PHP / Laravel</span>
+          <span class="stag hot">Vue.js</span>
+          <span class="stag hot">PostgreSQL</span>
+          <span class="stag">HTML / CSS / JS</span>
+          <span class="stag">C++</span>
+          <span class="stag">Bash</span>
+          <span class="stag">REST API</span>
+          <span class="stag">Redis</span>
+          <span class="stag">Git</span>
+          <span class="stag">GitLab CI/CD</span>
+          <span class="stag">Sentry</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">// Системы и сети</div>
+        <div class="skill-tags">
+          <span class="stag hot">Linux (Ubuntu)</span>
+          <span class="stag hot">Windows AD</span>
+          <span class="stag">Nginx</span>
+          <span class="stag">TCP/IP / DNS</span>
+          <span class="stag">HTTP/S · SSH · SMB</span>
+          <span class="stag">SSL / Let's Encrypt</span>
+          <span class="stag">rsync / mysqldump</span>
+          <span class="stag">PowerShell</span>
+          <span class="stag">Active Directory</span>
+          <span class="stag">Splunk / SIEM</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">// Инструменты</div>
+        <div class="skill-tags">
+          <span class="stag hot">VS Code</span>
+          <span class="stag">Confluence / Jira</span>
+          <span class="stag">htop / iotop</span>
+          <span class="stag">Virtualbox / VMware</span>
+          <span class="stag">Kali Linux</span>
+          <span class="stag">Docker (основы)</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">// Soft Skills</div>
+        <div class="skill-tags">
+          <span class="stag">Английский — разговорный</span>
+          <span class="stag">Русский — родной</span>
+          <span class="stag">Отчёты PoC</span>
+          <span class="stag">Командная работа</span>
+          <span class="stag">Самообучение</span>
+          <span class="stag">Аналитическое мышление</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SERVICES ════════════════════════════════════════ -->
+<section id="services" class="reveal">
+  <div class="section-label">03 / услуги</div>
+  <h2 class="section-title">Что я делаю</h2>
+  <p class="section-sub">Готов взяться за ваш проект. Пишите в Telegram или на почту.</p>
+
+  <div class="services-grid">
+    <div class="svc-card" data-num="01">
+      <div class="svc-icon">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      </div>
+      <h3>Пентест</h3>
+      <p>Тестирование на проникновение по методологии реального атакующего. Внутренние и внешние пентесты, веб-приложения, Active Directory.</p>
+      <ul class="svc-list">
+        <li>Разведка: OSINT, сканирование сети, перечисление сервисов</li>
+        <li>Веб: SQLi, XSS, CSRF, SSRF, IDOR, RCE через Burp Suite</li>
+        <li>Инфраструктура: AD-атаки, Kerberoasting, Pass-the-Hash</li>
+        <li>Отчёт с PoC, скриншотами и шагами по исправлению</li>
+        <li>Эксплуатация Metasploit, кастомные Bash/C++ эксплойты</li>
+      </ul>
+    </div>
+
+    <div class="svc-card" data-num="02">
+      <div class="svc-icon">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+      </div>
+      <h3>Сайт под ключ</h3>
+      <p>Full Stack разработка коммерческих проектов: корпоративные сайты, интернет-магазины, API-интеграции. С нуля до продакшна.</p>
+      <ul class="svc-list">
+        <li>Backend: PHP/Laravel + PostgreSQL, REST API</li>
+        <li>Frontend: Vue.js, адаптивная вёрстка HTML/CSS/JS</li>
+        <li>Интеграции: 1С, платёжные системы, СДЭК, Redis-очереди</li>
+        <li>Личный кабинет, каталог, корзина, программа лояльности</li>
+        <li>Базовая защита: CSRF-токены, WAF, мониторинг трафика</li>
+      </ul>
+    </div>
+
+    <div class="svc-card" data-num="03">
+      <div class="svc-icon">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+      </div>
+      <h3>DevOps / Инфраструктура</h3>
+      <p>Настройка и обслуживание серверов, автоматизация деплоя, мониторинг и оптимизация производительности.</p>
+      <ul class="svc-list">
+        <li>Ubuntu/Nginx: виртуальные хосты, SSL, brotli, HTTP/2</li>
+        <li>CI/CD: GitLab Pipelines, bash-деплой</li>
+        <li>Кэширование: Nginx + Redis, оптимизация SQL (EXPLAIN)</li>
+        <li>Мониторинг: Sentry, htop, логи ошибок</li>
+        <li>Бэкапы: rsync, mysqldump, репликация PostgreSQL</li>
+      </ul>
+    </div>
+
+    <div class="svc-card" data-num="04">
+      <div class="svc-icon">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+      </div>
+      <h3>Программы на C++ / Bash</h3>
+      <p>Написание утилит, скриптов автоматизации, простых эксплойтов и кастомных инструментов для повторяющихся задач.</p>
+      <ul class="svc-list">
+        <li>Автоматизация пентест-задач: кастомные сканеры, генераторы пейлоадов</li>
+        <li>Bash-скрипты: деплой, мониторинг, резервное копирование</li>
+        <li>C++ утилиты: обход антивируса, reverse shell генерация</li>
+        <li>Системные инструменты для Linux/Windows окружений</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXPERIENCE ══════════════════════════════════════ -->
+<div class="section-full" id="experience">
+  <div class="inner reveal">
+    <div class="section-label">04 / опыт</div>
+    <h2 class="section-title">Опыт работы</h2>
+    <p class="section-sub">2 года 9 месяцев в коммерческих проектах.</p>
+
+    <div class="exp-timeline">
+      <div class="exp-item">
+        <div class="exp-period">Сент 2025 — Март 2026 · 7 месяцев</div>
+        <div class="exp-title">Pentester</div>
+        <div class="exp-company">SecLab Solutions · Москва</div>
+        <div class="exp-body">
+          Проведение внутренних и внешних пентестов. Сканирование сетей, массовая проверка хостов. Поднимал виртуальные стенды Windows AD + Linux, эмулировал реального атакующего от разведки до привилегированного доступа. Атаки на AD: Kerberoasting, Pass-the-Hash, AS-REP Roast, Relay через Responder/ntlmrelayx. Веб: SQLi, XSS, CSRF, SSRF, IDOR, RCE через Burp Suite и SQLmap. Metasploit, reverse shell, обход антивируса шифрованием пейлоадов. Писал эксплойты на Bash и C++. Отчёты в Confluence/Jira с PoC.
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">12 пентест-сессий</span>
+          <span class="exp-tag">2 критических RCE</span>
+          <span class="exp-tag">1 захват домена</span>
+          <span class="exp-tag">Burp Suite</span>
+          <span class="exp-tag">Metasploit</span>
+          <span class="exp-tag">Active Directory</span>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-period">Июль 2023 — Авг 2025 · 2 года 2 месяца</div>
+        <div class="exp-title">Full Stack Developer / DevOps</div>
+        <div class="exp-company">Panther Energy · Пятигорск · pantherenergy.ru</div>
+        <div class="exp-body">
+          Разработка и поддержка корпоративного интернет-магазина: PHP/Laravel + PostgreSQL + Vue.js. Backend API для интеграции с 1С (товары, остатки, заказы), Redis-очереди. Фронтенд: корзина, личный кабинет, адаптивная вёрстка, админка. DevOps: Ubuntu/Nginx, SSL, GitLab CI/CD, brotli, HTTP/2, кэширование, репликация PostgreSQL. Интеграция ЮKassa и СДЭК. Запустил 3 крупных релиза. Сократил загрузку страниц с 2.5 до 0.9 сек.
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">Laravel / Vue.js</span>
+          <span class="exp-tag">PostgreSQL</span>
+          <span class="exp-tag">Redis</span>
+          <span class="exp-tag">GitLab CI/CD</span>
+          <span class="exp-tag">↓2.5s → 0.9s загрузка</span>
+          <span class="exp-tag">3 релиза</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TRYHACKME ══════════════════════════════════════ -->
+<div class="thm-section" id="tryhackme">
+  <div class="thm-inner reveal">
+    <div>
+      <div class="section-label">05 / tryhackme</div>
+      <h2 class="section-title">TryHackMe</h2>
+      <p style="font-size:16px;color:var(--muted);line-height:1.7;margin-bottom:16px;">
+        Занимаю первое место по России в режиме King of the Hill — соревновательном формате захвата и удержания машин в реальном времени.
+      </p>
+      <div class="thm-rank">#1 RU</div>
+      <p style="font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:24px;">King of the Hill · Russia</p>
+
+      <div class="thm-badge-row">
+        <div class="thm-badge"><span class="thm-badge-dot"></span>Red Team Path · 2026</div>
+        <div class="thm-badge"><span class="thm-badge-dot"></span>Jr Pentester · 2025</div>
+        <div class="thm-badge"><span class="thm-badge-dot"></span>Web Fundamentals · 2024</div>
+        <div class="thm-badge"><span class="thm-badge-dot"></span>Pre Security · 2023</div>
+      </div>
+    </div>
+
+    <div class="thm-platform-box">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--red);letter-spacing:0.15em;margin-bottom:16px;">// ПРОФИЛЬ</div>
+
+      <!-- ═══════════════════════════════════════════════
+           ВСТАВЬ СВОЙ ВИДЖЕТ TRYHACKME СЮДА
+           Например:
+           <iframe src="https://tryhackme.com/api/v2/badges/..."
+             style="border:none;width:100%;"></iframe>
+           ═══════════════════════════════════════════════ -->
+      <div id="thm-widget-slot" style="min-height:80px;">
+        <!-- ВИДЖЕТ -->
+      </div>
+      <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1637528" style='border:none;'></iframe>
+      <a href="https://tryhackme.com/p/whyasd666" target="_blank" rel="noopener" style="
+        display:inline-flex;align-items:center;gap:8px;margin-top:16px;
+        font-family:'Share Tech Mono',monospace;font-size:12px;
+        color:rgba(255,26,26,0.7);text-decoration:none;letter-spacing:0.08em;transition:color 0.2s;
+      " onmouseover="this.style.color='#FF1A1A'" onmouseout="this.style.color='rgba(255,26,26,0.7)'">
+        <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        tryhackme.com/p/whyasd666
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CERTS ════════════════════════════════════════════ -->
+<section class="reveal">
+  <div class="section-label">06 / сертификаты</div>
+  <h2 class="section-title">Пройденные пути</h2>
+  <p class="section-sub">Сертификаты TryHackMe — подтверждение практических навыков.</p>
+
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-svg-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/></svg>
+      </div>
+      <div class="cert-year">2026</div>
+      <div class="cert-name">Red Team</div>
+      <div class="cert-issuer">TryHackMe</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-svg-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+      </div>
+      <div class="cert-year">2025</div>
+      <div class="cert-name">Jr Penetration Tester</div>
+      <div class="cert-issuer">TryHackMe</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-svg-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253"/></svg>
+      </div>
+      <div class="cert-year">2024</div>
+      <div class="cert-name">Web Fundamentals</div>
+      <div class="cert-issuer">TryHackMe</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-svg-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+      </div>
+      <div class="cert-year">2023</div>
+      <div class="cert-name">Pre Security</div>
+      <div class="cert-issuer">TryHackMe</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ══════════════════════════════════════════ -->
+<div class="section-full" id="contact">
+  <div class="inner reveal">
+    <div class="section-label">07 / контакт</div>
+    <h2 class="section-title">Связаться</h2>
+    <p class="section-sub">Пишите в Telegram или на почту — отвечаю быстро.</p>
+
+    <div class="contact-grid">
+      <div class="contact-cards">
+        <a class="ccard" href="tel:+79187890009">
+          <div class="ccard-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          </div>
+          <div>
+            <div class="ccard-label">Телефон</div>
+            <div class="ccard-val">+7 (918) 789-00-09</div>
+          </div>
+        </a>
+
+        <a class="ccard" href="mailto:messdope@mail.ru">
+          <div class="ccard-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div>
+            <div class="ccard-label">Email</div>
+            <div class="ccard-val">messdope@mail.ru</div>
+          </div>
+        </a>
+
+        <a class="ccard" href="https://t.me/whyasd666" target="_blank">
+          <div class="ccard-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.284c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.27 13.924 4.32 13.03c-.636-.203-.647-.636.136-.94l10.89-4.198c.532-.19 1.001.13.816.956z"/></svg>
+          </div>
+          <div>
+            <div class="ccard-label">Telegram</div>
+            <div class="ccard-val">@whyasd666</div>
+          </div>
+        </a>
+
+        <a class="ccard" href="https://tryhackme.com/p/whyasd666" target="_blank">
+          <div class="ccard-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div>
+            <div class="ccard-label">TryHackMe</div>
+            <div class="ccard-val">tryhackme.com/p/whyasd666</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="avail-box">
+        <div class="avail-status">
+          <div class="avail-dot"></div>
+          <span>Открыт к предложениям</span>
+        </div>
+        <h3>Готов к работе</h3>
+        <p>Рассматриваю заказы на пентест, разработку сайтов, DevOps и C++ утилиты. Также ищу постоянную занятость в сфере информационной безопасности или веб-разработки.</p>
+        <div class="avail-items">
+          <div class="avail-item">Полная занятость или проектная работа</div>
+          <div class="avail-item">Удалённый формат или офис</div>
+          <div class="avail-item">Готов к редким командировкам</div>
+          <div class="avail-item">Пятигорск (готов к удалёнке)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <p>© 2025 <span>Whyasd</span> — Pentester & Developer</p>
+  <p>Пятигорск · <span>messdope@mail.ru</span> · @whyasd666</p>
 </footer>
 
 <script>
-  // хедер скролл
-  const header = document.getElementById('header');
+  // ── CURSOR (desktop only) ──────────────────────
+  const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
+  const dot  = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  if (!isTouchDevice()) {
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function animCursor() {
+      dot.style.left  = mx + 'px'; dot.style.top  = my + 'px';
+      rx += (mx - rx) * 0.12;     ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    })();
+    document.querySelectorAll('a, button, .svc-card, .about-card, .skill-group').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('expand'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('expand'));
+    });
+  }
+
+  // ── NAV SCROLL ─────────────────────────────────
+  const nav = document.getElementById('mainNav');
   window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 30);
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ── MOBILE MENU ────────────────────────────────
+  const burger    = document.getElementById('burgerBtn');
+  const mobileNav = document.getElementById('mobileNav');
+
+  function openMob() {
+    mobileNav.classList.add('open');
+    burger.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMob() {
+    mobileNav.classList.remove('open');
+    burger.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  burger.addEventListener('click', () => {
+    mobileNav.classList.contains('open') ? closeMob() : openMob();
   });
-  // мобильное меню
-  const burger = document.getElementById('burgerBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const closeMenu = document.getElementById('closeMenuBtn');
-  burger.addEventListener('click', () => mobileMenu.classList.add('open'));
-  closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
-  document.querySelectorAll('.mobile-menu a').forEach(link => {
-    link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-  });
-  // плавный скролл
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href');
-      if (targetId === "#") return;
-      const target = document.querySelector(targetId);
+  document.getElementById('mobileClose').addEventListener('click', closeMob);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMob(); });
+
+  // ── SCROLL REVEAL ──────────────────────────────
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('up'); ro.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  // ── ANIMATED COUNTERS ──────────────────────────
+  const co = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && e.target.dataset.count) {
+        const target = +e.target.dataset.count;
+        const suffix = e.target.textContent.includes('+') ? '+' : '';
+        let cur = 0;
+        const step = target / 40;
+        const t = setInterval(() => {
+          cur = Math.min(cur + step, target);
+          e.target.textContent = Math.floor(cur) + suffix;
+          if (cur >= target) clearInterval(t);
+        }, 30);
+        co.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(el => co.observe(el));
+
+  // ── SMOOTH SCROLL ──────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
       if (target) {
         e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        if (mobileMenu.classList.contains('open')) mobileMenu.classList.remove('open');
+        closeMob();
+        const offset = 70;
+        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
       }
     });
   });
-  // Reveal анимации
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── IOS VIEWPORT HEIGHT FIX ────────────────────
+  // Фикс для Safari на iPhone — 100vh учитывает адресную строку
+  function setVh() {
+    document.documentElement.style.setProperty('--real-vh', window.innerHeight * 0.01 + 'px');
+  }
+  setVh();
+  window.addEventListener('resize', setVh, { passive: true });
 </script>
 </body>
 </html>
