@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Whyasd</title>
 <link rel="icon" href="icon.jpg" type="image/x-icon">
-<meta name="description" content="Пентестер, Full Stack разработчик, CTF игрок #1 в России на TryHackMe KoTH. Пятигорск.">
+<meta name="description" content="Red Team оператор, пентестер и Full Stack разработчик. Пятигорск. Заказать пентест или сайт под ключ.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Unbounded:wght@300;400;700;900&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -1276,6 +1276,7 @@
   <a href="#skills" onclick="closeMob()">навыки</a>
   <a href="#services" onclick="closeMob()">услуги</a>
   <a href="#experience" onclick="closeMob()">опыт</a>
+  <a href="#tools" onclick="closeMob()">тулы</a>
   <a href="#tryhackme" onclick="closeMob()">tryhackme</a>
   <a href="#contact" onclick="closeMob()">контакт</a>
 </div>
@@ -1288,6 +1289,7 @@
     <li><a href="#skills">навыки</a></li>
     <li><a href="#services">услуги</a></li>
     <li><a href="#experience">опыт</a></li>
+    <li><a href="#tools">тулы</a></li>
     <li><a href="#tryhackme">tryhackme</a></li>
     <li><a href="#contact">контакт</a></li>
   </ul>
@@ -1302,7 +1304,7 @@
   <div class="hero-glow-2"></div>
   <div class="hero-inner">
     <div>
-      <div class="hero-tag">Pentester · Developer · CTF Player</div>
+      <div class="hero-tag">Red Teamer · Pentester · Web Developer</div>
       <h1 class="hero-name" aria-label="WHYASD">
         <div class="name-glitch-wrap" data-text="WHYASD">
           <div class="name-scanline"></div>
@@ -1313,11 +1315,10 @@
         </div>
       </h1>
       <p class="hero-role">
-        Pentester<span class="sep">/</span>Full Stack Dev<span class="sep">/</span>CTF #1 RU
+        Red Teamer<span class="sep">/</span>Pentester<span class="sep">/</span>Full Stack Dev
       </p>
       <p class="hero-desc">
-        20 лет. Пятигорск. Специализируюсь на тестировании на проникновение,
-        веб-разработке и DevOps. Занимаю первое место по России на TryHackMe KoTH.
+        20 лет. Пятигорск. Специализируюсь на Red Team операциях, тестировании на проникновение и веб-разработке. Пишу кастомные инструменты для обхода защит. CTF игрок — #1 KoTH по России на TryHackMe.
       </p>
       <div class="hero-contacts">
         <a class="contact-line" href="tel:+79187890009">
@@ -1353,12 +1354,12 @@
         <span class="t-line"><span class="t-prompt">➜</span> <span class="t-cmd">whoami</span></span>
         <span class="t-line t-out">whyasd</span>
         <span class="t-line" style="margin-top:8px"><span class="t-prompt">➜</span> <span class="t-cmd">cat skills.txt</span></span>
+        <span class="t-line t-out"><span class="t-green">✓</span> Red Team Operations</span>
         <span class="t-line t-out"><span class="t-green">✓</span> Penetration Testing</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> C2 Frameworks (Cobalt Strike, Havoc)</span>
         <span class="t-line t-out"><span class="t-green">✓</span> Web App Security</span>
-        <span class="t-line t-out"><span class="t-green">✓</span> Active Directory Attacks</span>
         <span class="t-line t-out"><span class="t-green">✓</span> Full Stack Development</span>
-        <span class="t-line t-out"><span class="t-green">✓</span> DevOps / Linux Admin</span>
-        <span class="t-line t-out"><span class="t-green">✓</span> C++ / Bash Scripting</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> Custom Tooling (Python/C++/Bash)</span>
         <span class="t-line" style="margin-top:8px"><span class="t-prompt">➜</span> <span class="t-cmd">cat rank.txt</span></span>
         <span class="t-line t-out"><span class="t-red2">#1</span> Russia — TryHackMe KoTH</span>
         <span class="t-line" style="margin-top:8px"><span class="t-prompt">➜</span> <span class="t-cmd">./status</span></span>
@@ -1374,7 +1375,7 @@
 <section class="reveal">
   <div class="section-label">01 / обо мне</div>
   <h2 class="section-title">Кто я</h2>
-  <p class="section-sub">Пентестер, разработчик и CTF-игрок с реальным опытом боевых задач.</p>
+  <p class="section-sub">Red Team оператор, пентестер и веб-разработчик с реальным опытом боевых задач.</p>
 
   <div class="stats-row">
     <div class="stat-box">
@@ -1391,26 +1392,26 @@
     </div>
     <div class="stat-box">
       <div class="stat-num" data-count="3">0</div>
-      <div class="stat-lbl">Крупных релизов</div>
+      <div class="stat-lbl">Кастомных тулов</div>
     </div>
   </div>
 
   <div class="about-grid">
     <div class="about-card">
-      <h3>// Безопасность</h3>
-      <p>Провожу внутренние и внешние пентесты. Специализируюсь на Active Directory атаках (Kerberoasting, Pass-the-Hash, AS-REP Roast), веб-уязвимостях OWASP Top 10 и реальных сценариях Red Team. Нашёл критические RCE в реальных системах, выполнил полный захват домена.</p>
+      <h3>// Red Team</h3>
+      <p>Провожу полноценные Red Team операции: от разведки и начального доступа до lateral movement и захвата домена. Работаю с C2 фреймворками (Cobalt Strike, Havoc, Sliver), пишу кастомные импланты и обходы EDR/AV. Эмулирую реальных APT-акторов по MITRE ATT&CK.</p>
+    </div>
+    <div class="about-card">
+      <h3>// Пентест & Web</h3>
+      <p>Провожу внутренние и внешние пентесты. Специализируюсь на Active Directory атаках (Kerberoasting, Pass-the-Hash, AS-REP Roast), веб-уязвимостях OWASP Top 10. Нашёл критические RCE в реальных системах, выполнил полный захват домена.</p>
     </div>
     <div class="about-card">
       <h3>// Разработка</h3>
-      <p>Full Stack на PHP/Laravel + Vue.js с PostgreSQL. Писал backend API, интегрировал платёжные системы (ЮKassa), логистику (СДЭК), синхронизацию с 1С. Сократил время загрузки страниц с 2.5 до 0.9 секунды через оптимизацию кэша и HTTP/2.</p>
+      <p>Full Stack на PHP/Laravel + Vue.js с PostgreSQL. Пишу кастомные инструменты для пентеста на Python и C++. Писал backend API, интегрировал платёжные системы, синхронизацию с 1С. Сократил время загрузки с 2.5 до 0.9 сек.</p>
     </div>
     <div class="about-card">
-      <h3>// DevOps / Инфраструктура</h3>
-      <p>Ubuntu/Nginx сервера, GitLab CI/CD, SSL, Redis кэширование, мониторинг Sentry. Настройка виртуальных хостов, репликация PostgreSQL, автоматизация деплоя через bash и GitLab pipelines.</p>
-    </div>
-    <div class="about-card">
-      <h3>// CTF & Обучение</h3>
-      <p>Занимаю первое место по России на TryHackMe King of the Hill. Прошёл полные пути Red Team, Jr Penetration Tester, Web Fundamentals. Учусь на инженера информационных систем в Университете Иннополис (2029).</p>
+      <h3>// CTF & Инструменты</h3>
+      <p>Занимаю первое место по России на TryHackMe King of the Hill. Прошёл полные пути Red Team, Jr Penetration Tester, Web Fundamentals. Пишу открытые инструменты для сообщества — whyxss, whyasdscan, whytrix.</p>
     </div>
   </div>
 </section>
@@ -1425,21 +1426,33 @@
 
     <div class="skills-grid">
       <div class="skill-group">
-        <div class="skill-group-title">// Пентест и ИБ</div>
+        <div class="skill-group-title">// Red Team & C2</div>
         <div class="skill-tags">
-          <span class="stag hot">Metasploit</span>
+          <span class="stag hot">Cobalt Strike</span>
+          <span class="stag hot">Havoc C2</span>
+          <span class="stag hot">Sliver</span>
+          <span class="stag">Metasploit</span>
+          <span class="stag">Empire</span>
+          <span class="stag">Covenant</span>
+          <span class="stag">BOF (Beacon Object Files)</span>
+          <span class="stag">OPSEC</span>
+          <span class="stag">Implant Dev</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">// Пентест & ИБ</div>
+        <div class="skill-tags">
           <span class="stag hot">Burp Suite</span>
           <span class="stag hot">Nmap</span>
+          <span class="stag hot">SQLmap</span>
           <span class="stag">Wireshark</span>
-          <span class="stag">SQLmap</span>
           <span class="stag">Responder</span>
           <span class="stag">ntlmrelayx</span>
           <span class="stag">Nikto</span>
           <span class="stag">Dirbuster</span>
           <span class="stag">netcat</span>
           <span class="stag">OSINT</span>
-          <span class="stag">dnsrecon</span>
-          <span class="stag">whois</span>
           <span class="stag">Burp Collaborator</span>
         </div>
       </div>
@@ -1454,57 +1467,41 @@
           <span class="stag">SQLi / XSS</span>
           <span class="stag">CSRF / SSRF</span>
           <span class="stag">IDOR / RCE</span>
-          <span class="stag">Reverse Shell</span>
-          <span class="stag">Privesc</span>
+          <span class="stag">Lateral Movement</span>
+          <span class="stag">Privilege Escalation</span>
+          <span class="stag">AV/EDR Bypass</span>
           <span class="stag">MITRE ATT&CK</span>
-          <span class="stag">Kill Chain</span>
-          <span class="stag">Red Team</span>
-          <span class="stag">SOC</span>
+          <span class="stag">Payload Obfuscation</span>
         </div>
       </div>
 
       <div class="skill-group">
         <div class="skill-group-title">// Разработка</div>
         <div class="skill-tags">
+          <span class="stag hot">Python</span>
           <span class="stag hot">PHP / Laravel</span>
           <span class="stag hot">Vue.js</span>
-          <span class="stag hot">PostgreSQL</span>
-          <span class="stag">HTML / CSS / JS</span>
           <span class="stag">C++</span>
           <span class="stag">Bash</span>
+          <span class="stag">PostgreSQL</span>
+          <span class="stag">HTML / CSS / JS</span>
           <span class="stag">REST API</span>
-          <span class="stag">Redis</span>
           <span class="stag">Git</span>
-          <span class="stag">GitLab CI/CD</span>
-          <span class="stag">Sentry</span>
         </div>
       </div>
 
       <div class="skill-group">
         <div class="skill-group-title">// Системы и сети</div>
         <div class="skill-tags">
-          <span class="stag hot">Linux (Ubuntu)</span>
+          <span class="stag hot">Linux (Kali/Ubuntu)</span>
           <span class="stag hot">Windows AD</span>
-          <span class="stag">Nginx</span>
           <span class="stag">TCP/IP / DNS</span>
           <span class="stag">HTTP/S · SSH · SMB</span>
-          <span class="stag">SSL / Let's Encrypt</span>
-          <span class="stag">rsync / mysqldump</span>
           <span class="stag">PowerShell</span>
+          <span class="stag">WMI / COM</span>
+          <span class="stag">Named Pipes</span>
           <span class="stag">Active Directory</span>
-          <span class="stag">Splunk / SIEM</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-group-title">// Инструменты</div>
-        <div class="skill-tags">
-          <span class="stag hot">VS Code</span>
-          <span class="stag">Confluence / Jira</span>
-          <span class="stag">htop / iotop</span>
-          <span class="stag">Virtualbox / VMware</span>
-          <span class="stag">Kali Linux</span>
-          <span class="stag">Docker (основы)</span>
+          <span class="stag">Pivoting / Tunneling</span>
         </div>
       </div>
 
@@ -1541,11 +1538,26 @@
         <li>Веб: SQLi, XSS, CSRF, SSRF, IDOR, RCE через Burp Suite</li>
         <li>Инфраструктура: AD-атаки, Kerberoasting, Pass-the-Hash</li>
         <li>Отчёт с PoC, скриншотами и шагами по исправлению</li>
-        <li>Эксплуатация Metasploit, кастомные Bash/C++ эксплойты</li>
+        <li>Кастомные эксплойты на Python / Bash / C++</li>
       </ul>
     </div>
 
     <div class="svc-card" data-num="02">
+      <div class="svc-icon">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+      </div>
+      <h3>Red Team операция</h3>
+      <p>Полноценная эмуляция реального атакующего. От начального доступа и закрепления до lateral movement и захвата целевых систем.</p>
+      <ul class="svc-list">
+        <li>Phishing / Spear Phishing с кастомными пейлоадами</li>
+        <li>C2 инфраструктура (Havoc, Sliver, Cobalt Strike)</li>
+        <li>Lateral movement, pivoting, persistence</li>
+        <li>Обход EDR/AV, payload obfuscation</li>
+        <li>Финальный отчёт по MITRE ATT&CK с рекомендациями</li>
+      </ul>
+    </div>
+
+    <div class="svc-card" data-num="03">
       <div class="svc-icon">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
       </div>
@@ -1554,24 +1566,9 @@
       <ul class="svc-list">
         <li>Backend: PHP/Laravel + PostgreSQL, REST API</li>
         <li>Frontend: Vue.js, адаптивная вёрстка HTML/CSS/JS</li>
-        <li>Интеграции: 1С, платёжные системы, СДЭК, Redis-очереди</li>
+        <li>Интеграции: 1С, платёжные системы, СДЭК</li>
         <li>Личный кабинет, каталог, корзина, программа лояльности</li>
         <li>Базовая защита: CSRF-токены, WAF, мониторинг трафика</li>
-      </ul>
-    </div>
-
-    <div class="svc-card" data-num="03">
-      <div class="svc-icon">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
-      </div>
-      <h3>DevOps / Инфраструктура</h3>
-      <p>Настройка и обслуживание серверов, автоматизация деплоя, мониторинг и оптимизация производительности.</p>
-      <ul class="svc-list">
-        <li>Ubuntu/Nginx: виртуальные хосты, SSL, brotli, HTTP/2</li>
-        <li>CI/CD: GitLab Pipelines, bash-деплой</li>
-        <li>Кэширование: Nginx + Redis, оптимизация SQL (EXPLAIN)</li>
-        <li>Мониторинг: Sentry, htop, логи ошибок</li>
-        <li>Бэкапы: rsync, mysqldump, репликация PostgreSQL</li>
       </ul>
     </div>
 
@@ -1579,13 +1576,13 @@
       <div class="svc-icon">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
       </div>
-      <h3>Программы на C++ / Bash</h3>
-      <p>Написание утилит, скриптов автоматизации, простых эксплойтов и кастомных инструментов для повторяющихся задач.</p>
+      <h3>Кастомные инструменты</h3>
+      <p>Разработка утилит для пентеста и автоматизации: сканеры, эксплойты, обходчики защит, кастомные агенты.</p>
       <ul class="svc-list">
-        <li>Автоматизация пентест-задач: кастомные сканеры, генераторы пейлоадов</li>
-        <li>Bash-скрипты: деплой, мониторинг, резервное копирование</li>
-        <li>C++ утилиты: обход антивируса, reverse shell генерация</li>
-        <li>Системные инструменты для Linux/Windows окружений</li>
+        <li>Python-инструменты: сканеры, пейлоад-генераторы, автоматизация</li>
+        <li>C++ утилиты: обход AV/EDR, reverse shell, инжекторы</li>
+        <li>Bash-скрипты для автоматизации пентест-задач</li>
+        <li>Кастомные BOF для Cobalt Strike / Havoc</li>
       </ul>
     </div>
   </div>
@@ -1601,33 +1598,33 @@
     <div class="exp-timeline">
       <div class="exp-item">
         <div class="exp-period">Сент 2025 — Март 2026 · 7 месяцев</div>
-        <div class="exp-title">Pentester</div>
+        <div class="exp-title">Red Team Operator / Pentester</div>
         <div class="exp-company">SecLab Solutions · Москва</div>
         <div class="exp-body">
-          Проведение внутренних и внешних пентестов. Сканирование сетей, массовая проверка хостов. Поднимал виртуальные стенды Windows AD + Linux, эмулировал реального атакующего от разведки до привилегированного доступа. Атаки на AD: Kerberoasting, Pass-the-Hash, AS-REP Roast, Relay через Responder/ntlmrelayx. Веб: SQLi, XSS, CSRF, SSRF, IDOR, RCE через Burp Suite и SQLmap. Metasploit, reverse shell, обход антивируса шифрованием пейлоадов. Писал эксплойты на Bash и C++. Отчёты в Confluence/Jira с PoC.
+          Проведение полноценных Red Team операций и внутренних/внешних пентестов. Развёртывание C2 инфраструктуры на базе Havoc и Sliver. Эмуляция APT-акторов по MITRE ATT&CK от initial access до domain dominance. Атаки на AD: Kerberoasting, Pass-the-Hash, AS-REP Roast, Relay через Responder/ntlmrelayx. Веб: SQLi, XSS, CSRF, SSRF, IDOR, RCE. Разработка кастомных пейлоадов с обходом EDR. Отчёты в Confluence/Jira с полными PoC.
         </div>
         <div class="exp-tags">
           <span class="exp-tag">12 пентест-сессий</span>
           <span class="exp-tag">2 критических RCE</span>
           <span class="exp-tag">1 захват домена</span>
+          <span class="exp-tag">Havoc C2</span>
           <span class="exp-tag">Burp Suite</span>
-          <span class="exp-tag">Metasploit</span>
           <span class="exp-tag">Active Directory</span>
         </div>
       </div>
 
       <div class="exp-item">
         <div class="exp-period">Июль 2023 — Авг 2025 · 2 года 2 месяца</div>
-        <div class="exp-title">Full Stack Developer / DevOps</div>
+        <div class="exp-title">Full Stack Developer</div>
         <div class="exp-company">Panther Energy · Пятигорск · pantherenergy.ru</div>
         <div class="exp-body">
-          Разработка и поддержка корпоративного интернет-магазина: PHP/Laravel + PostgreSQL + Vue.js. Backend API для интеграции с 1С (товары, остатки, заказы), Redis-очереди. Фронтенд: корзина, личный кабинет, адаптивная вёрстка, админка. DevOps: Ubuntu/Nginx, SSL, GitLab CI/CD, brotli, HTTP/2, кэширование, репликация PostgreSQL. Интеграция ЮKassa и СДЭК. Запустил 3 крупных релиза. Сократил загрузку страниц с 2.5 до 0.9 сек.
+          Разработка и поддержка корпоративного интернет-магазина: PHP/Laravel + PostgreSQL + Vue.js. Backend API для интеграции с 1С (товары, остатки, заказы), Redis-очереди. Фронтенд: корзина, личный кабинет, адаптивная вёрстка, админка. Интеграция ЮKassa и СДЭК. Запустил 3 крупных релиза. Сократил загрузку страниц с 2.5 до 0.9 сек через оптимизацию кэша.
         </div>
         <div class="exp-tags">
           <span class="exp-tag">Laravel / Vue.js</span>
           <span class="exp-tag">PostgreSQL</span>
           <span class="exp-tag">Redis</span>
-          <span class="exp-tag">GitLab CI/CD</span>
+          <span class="exp-tag">REST API</span>
           <span class="exp-tag">↓2.5s → 0.9s загрузка</span>
           <span class="exp-tag">3 релиза</span>
         </div>
@@ -1636,11 +1633,80 @@
   </div>
 </div>
 
+<!-- ═══ TOOLS ════════════════════════════════════════════ -->
+<section id="tools" class="reveal">
+  <div class="section-label">05 / тулы</div>
+  <h2 class="section-title">Мои инструменты</h2>
+  <p class="section-sub">Открытые инструменты для пентеста. Написаны на Python. <a href="https://github.com/whyasd666/t00ls" target="_blank" rel="noopener" style="color:var(--red);text-decoration:none;border-bottom:1px solid rgba(255,26,26,0.3);">github.com/whyasd666/t00ls →</a></p>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+
+    <!-- whyxss -->
+    <div class="about-card" style="grid-column:span 1;">
+      <h3 style="font-size:16px;font-family:var(--mono);color:var(--red);margin-bottom:8px;">// whyxss.py</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Автоматизированный сканер XSS-уязвимостей. Обнаруживает reflected и stored XSS, тестирует формы и URL-параметры с обходом базовых фильтров.</p>
+      <div style="background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:14px;font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">
+        <span style="color:var(--red);">$</span> python3 whyxss.py -u https://target.com<br>
+        <span style="color:#4ADE80;">[+]</span> Scanning for XSS vectors...<br>
+        <span style="color:#4ADE80;">[+]</span> Found: /search?q= → reflected XSS<br>
+        <span style="color:#4ADE80;">[+]</span> Payload: &lt;script&gt;alert(1)&lt;/script&gt;<br>
+        <span style="color:var(--red);">[!]</span> 3 vulnerabilities found
+      </div>
+      <a href="https://github.com/whyasd666/t00ls/blob/main/whyxss.py" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-family:var(--mono);font-size:11px;color:rgba(255,26,26,0.7);text-decoration:none;letter-spacing:0.08em;">
+        <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        Открыть на GitHub
+      </a>
+    </div>
+
+    <!-- whyasdscan -->
+    <div class="about-card" style="grid-column:span 1;">
+      <h3 style="font-size:16px;font-family:var(--mono);color:var(--red);margin-bottom:8px;">// whyasdscan.py</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Многопоточный сканер портов и сервисов с определением баннеров. Поддерживает CIDR-диапазоны, экспорт результатов и интеграцию с другими тулами.</p>
+      <div style="background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:14px;font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">
+        <span style="color:var(--red);">$</span> python3 whyasdscan.py -t 192.168.1.0/24<br>
+        <span style="color:#4ADE80;">[+]</span> Scanning 256 hosts...<br>
+        <span style="color:#4ADE80;">[+]</span> 192.168.1.5:22 — OpenSSH 8.9<br>
+        <span style="color:#4ADE80;">[+]</span> 192.168.1.5:80 — Apache 2.4.52<br>
+        <span style="color:#4ADE80;">[+]</span> 192.168.1.10:445 — SMB open
+      </div>
+      <a href="https://github.com/whyasd666/t00ls/blob/main/whyasdscan.py" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-family:var(--mono);font-size:11px;color:rgba(255,26,26,0.7);text-decoration:none;letter-spacing:0.08em;">
+        <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        Открыть на GitHub
+      </a>
+    </div>
+
+    <!-- whytrix -->
+    <div class="about-card" style="grid-column:span 1;">
+      <h3 style="font-size:16px;font-family:var(--mono);color:var(--red);margin-bottom:8px;">// whytrix.py</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Инструмент для генерации и обфускации пейлоадов. Поддерживает несколько техник кодирования и обхода базовых WAF и сигнатурных фильтров.</p>
+      <div style="background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:14px;font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">
+        <span style="color:var(--red);">$</span> python3 whytrix.py --type xss --encode b64<br>
+        <span style="color:#4ADE80;">[+]</span> Generating payloads...<br>
+        <span style="color:#4ADE80;">[+]</span> Base64: PHNjcmlwdD5...<br>
+        <span style="color:#4ADE80;">[+]</span> URL-encoded: %3Cscript%3E...<br>
+        <span style="color:#4ADE80;">[+]</span> 12 variants generated
+      </div>
+      <a href="https://github.com/whyasd666/t00ls/blob/main/whytrix.py" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-family:var(--mono);font-size:11px;color:rgba(255,26,26,0.7);text-decoration:none;letter-spacing:0.08em;">
+        <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        Открыть на GitHub
+      </a>
+    </div>
+
+  </div>
+
+  <div style="margin-top:24px;text-align:center;">
+    <a href="https://github.com/whyasd666/t00ls" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border:1px solid rgba(255,26,26,0.4);border-radius:8px;font-family:var(--mono);font-size:13px;color:var(--red);text-decoration:none;background:rgba(255,26,26,0.06);letter-spacing:0.08em;transition:background 0.2s,border-color 0.2s;" onmouseover="this.style.background='rgba(255,26,26,0.12)';this.style.borderColor='rgba(255,26,26,0.7)'" onmouseout="this.style.background='rgba(255,26,26,0.06)';this.style.borderColor='rgba(255,26,26,0.4)'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      Все тулы на GitHub
+    </a>
+  </div>
+</section>
+
 <!-- ═══ TRYHACKME ══════════════════════════════════════ -->
 <div class="thm-section" id="tryhackme">
   <div class="thm-inner reveal">
     <div>
-      <div class="section-label">05 / tryhackme</div>
+      <div class="section-label">06 / tryhackme</div>
       <h2 class="section-title">TryHackMe</h2>
       <p style="font-size:16px;color:var(--muted);line-height:1.7;margin-bottom:16px;">
         Занимаю первое место по России в режиме King of the Hill — соревновательном формате захвата и удержания машин в реальном времени.
@@ -1683,7 +1749,7 @@
 
 <!-- ═══ CERTS ════════════════════════════════════════════ -->
 <section class="reveal">
-  <div class="section-label">06 / сертификаты</div>
+  <div class="section-label">07 / сертификаты</div>
   <h2 class="section-title">Пройденные пути</h2>
   <p class="section-sub">Сертификаты TryHackMe — подтверждение практических навыков.</p>
 
@@ -1726,7 +1792,7 @@
 <!-- ═══ CONTACT ══════════════════════════════════════════ -->
 <div class="section-full" id="contact">
   <div class="inner reveal">
-    <div class="section-label">07 / контакт</div>
+    <div class="section-label">08 / контакт</div>
     <h2 class="section-title">Связаться</h2>
     <p class="section-sub">Пишите в Telegram или на почту — отвечаю быстро.</p>
 
@@ -1762,6 +1828,16 @@
           </div>
         </a>
 
+        <a class="ccard" href="https://github.com/whyasd666/t00ls" target="_blank">
+          <div class="ccard-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </div>
+          <div>
+            <div class="ccard-label">GitHub Tools</div>
+            <div class="ccard-val">github.com/whyasd666/t00ls</div>
+          </div>
+        </a>
+
         <a class="ccard" href="https://tryhackme.com/p/whyasd666" target="_blank">
           <div class="ccard-icon">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
@@ -1779,7 +1855,7 @@
           <span>Открыт к предложениям</span>
         </div>
         <h3>Готов к работе</h3>
-        <p>Рассматриваю заказы на пентест, разработку сайтов, DevOps и C++ утилиты. Также ищу постоянную занятость в сфере информационной безопасности или веб-разработки.</p>
+        <p>Рассматриваю заказы на пентест, Red Team операции, разработку сайтов и кастомных инструментов. Также ищу постоянную занятость в сфере информационной безопасности.</p>
         <div class="avail-items">
           <div class="avail-item">Полная занятость или проектная работа</div>
           <div class="avail-item">Удалённый формат или офис</div>
