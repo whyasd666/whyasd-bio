@@ -702,32 +702,6 @@
     color: rgba(255,26,26,0.04);
     line-height: 1;
   }
-  .thm-widget-placeholder {
-    background: rgba(255,26,26,0.03);
-    border: 1px dashed rgba(255,26,26,0.2);
-    border-radius: 8px;
-    padding: 32px;
-    text-align: center;
-    margin-top: 20px;
-  }
-  .thm-widget-placeholder p {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.8;
-  }
-  .thm-widget-placeholder a {
-    color: var(--red);
-    text-decoration: none;
-  }
-  .thm-widget-placeholder a:hover { text-decoration: underline; }
-  /* Место для реального виджета TryHackMe */
-  .thm-widget-real {
-    margin-top: 20px;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--line);
-  }
 
   /* ── CERTS ─────────────────────────────────────── */
   .certs-grid {
@@ -926,14 +900,12 @@
     line-height: 1;
   }
 
-  /* Wrapper для букв */
   .name-letters {
     display: inline-flex;
     gap: 0.02em;
     position: relative;
   }
 
-  /* Каждая буква */
   .nl {
     display: inline-block;
     color: var(--red);
@@ -964,7 +936,6 @@
     100% { opacity:1; transform: translateY(0) skewX(0); }
   }
 
-  /* Glow-пульс после появления */
   .nl.glow-pulse {
     animation: letterIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards,
                namePulse 3s ease-in-out 1s infinite;
@@ -974,7 +945,6 @@
     50%     { text-shadow: 0 0 30px rgba(255,26,26,0.9), 0 0 80px rgba(255,26,26,0.4), 0 0 120px rgba(255,26,26,0.15); }
   }
 
-  /* Глитч-слой поверх */
   .name-glitch-wrap {
     position: relative;
     display: inline-block;
@@ -1017,7 +987,6 @@
     93%  { opacity:0; }
   }
 
-  /* Underscore cursor после имени */
   .name-cursor {
     display: inline-block;
     width: clamp(6px, 1.2vw, 10px);
@@ -1036,7 +1005,6 @@
     50%     { opacity:0; }
   }
 
-  /* Red scan line sweep on load */
   .name-scanline {
     position: absolute;
     left: -8px; right: -8px;
@@ -1111,7 +1079,6 @@
 
   /* ── RESPONSIVE ────────────────────────────────── */
 
-  /* Large tablet */
   @media(max-width: 1024px) {
     .hero-inner { grid-template-columns: 1fr; gap: 0; }
     .terminal-card { display: none; }
@@ -1122,7 +1089,6 @@
     .exp-timeline { padding-left: 24px; }
   }
 
-  /* Tablet */
   @media(max-width: 768px) {
     nav { padding: 14px 20px; }
     .nav-links { display: none; }
@@ -1163,6 +1129,9 @@
     .thm-rank { font-size: 40px; }
     .thm-platform-box { padding: 24px; }
 
+    /* Фикс для TOOLS на мобиле */
+    #tools .tools-3col { grid-template-columns: 1fr !important; }
+
     .certs-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .cert-card { padding: 20px 16px; }
 
@@ -1177,7 +1146,6 @@
     .cursor-dot, .cursor-ring { display: none; }
   }
 
-  /* Mobile */
   @media(max-width: 480px) {
     nav { padding: 12px 16px; }
     .nav-logo { font-size: 11px; }
@@ -1230,7 +1198,6 @@
     .mobile-nav { gap: 20px; }
   }
 
-  /* Очень маленькие экраны */
   @media(max-width: 360px) {
     .hero { padding: 76px 14px 44px; }
     section { padding: 40px 14px; }
@@ -1238,7 +1205,6 @@
     .certs-grid { grid-template-columns: 1fr; }
   }
 
-  /* Touch — убираем hover-эффекты */
   @media(hover: none) {
     .about-card:hover,
     .skill-group:hover,
@@ -1250,14 +1216,12 @@
     .nl.glow-pulse { animation: letterIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards, namePulse 3s ease-in-out 1s infinite; }
   }
 
-  /* Prefer-reduced-motion */
   @media(prefers-reduced-motion: reduce) {
     .nl { animation: none !important; opacity: 1; transform: none; }
     .name-glitch-wrap::before, .name-glitch-wrap::after { animation: none !important; }
     .name-cursor { animation: none !important; opacity: 1; }
     .name-scanline { animation: none !important; }
     .reveal { transition: none; }
-    .ticker-track { animation: none; }
   }
 </style>
 </head>
@@ -1265,7 +1229,6 @@
 
 <div class="grid-bg"></div>
 
-<!-- Custom cursor -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
@@ -1318,7 +1281,7 @@
         Red Teamer<span class="sep">/</span>Pentester<span class="sep">/</span>Full Stack Dev
       </p>
       <p class="hero-desc">
-        20 лет. Пятигорск. Специализируюсь на Red Team операциях, тестировании на проникновение и веб-разработке. Пишу кастомные инструменты для обхода защит. CTF игрок — #1 KoTH по России на TryHackMe.
+        20 лет. Пятигорск. Red Team операции, пентест, веб-разработка. Кастомные инструменты для обхода защит. #1 KoTH по России на TryHackMe.
       </p>
       <div class="hero-contacts">
         <a class="contact-line" href="tel:+79187890009">
@@ -1355,11 +1318,11 @@
         <span class="t-line t-out">whyasd</span>
         <span class="t-line" style="margin-top:8px"><span class="t-prompt">➜</span> <span class="t-cmd">cat skills.txt</span></span>
         <span class="t-line t-out"><span class="t-green">✓</span> Red Team Operations</span>
-        <span class="t-line t-out"><span class="t-green">✓</span> Penetration Testing</span>
-        <span class="t-line t-out"><span class="t-green">✓</span> C2 Frameworks (Cobalt Strike, Havoc)</span>
-        <span class="t-line t-out"><span class="t-green">✓</span> Web App Security</span>
-        <span class="t-line t-out"><span class="t-green">✓</span> Full Stack Development</span>
-        <span class="t-line t-out"><span class="t-green">✓</span> Custom Tooling (Python/C++/Bash)</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> Black/White Box Testing</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> C2 (Cobalt Strike, Havoc, Sliver)</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> OWASP Top 10 / RCE / XSS</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> malware dev / OPSEC</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> Docker / K8s / AWS</span>
         <span class="t-line" style="margin-top:8px"><span class="t-prompt">➜</span> <span class="t-cmd">cat rank.txt</span></span>
         <span class="t-line t-out"><span class="t-red2">#1</span> Russia — TryHackMe KoTH</span>
         <span class="t-line" style="margin-top:8px"><span class="t-prompt">➜</span> <span class="t-cmd">./status</span></span>
@@ -1375,7 +1338,7 @@
 <section class="reveal">
   <div class="section-label">01 / обо мне</div>
   <h2 class="section-title">Кто я</h2>
-  <p class="section-sub">Red Team оператор, пентестер и веб-разработчик с реальным опытом боевых задач.</p>
+  <p class="section-sub">Red Team оператор и пентестер с реальным опытом боевых задач.</p>
 
   <div class="stats-row">
     <div class="stat-box">
@@ -1399,19 +1362,19 @@
   <div class="about-grid">
     <div class="about-card">
       <h3>// Red Team</h3>
-      <p>Провожу полноценные Red Team операции: от разведки и начального доступа до lateral movement и захвата домена. Работаю с C2 фреймворками (Cobalt Strike, Havoc, Sliver), пишу кастомные импланты и обходы EDR/AV. Эмулирую реальных APT-акторов по MITRE ATT&CK.</p>
+      <p>Полные Red Team операции: разведка → initial access → lateral movement → захват домена. C2 фреймворки (Cobalt Strike, Havoc, Sliver), кастомные импланты, обход EDR/AV. Эмуляция APT по MITRE ATT&CK.</p>
     </div>
     <div class="about-card">
       <h3>// Пентест & Web</h3>
-      <p>Провожу внутренние и внешние пентесты. Специализируюсь на Active Directory атаках (Kerberoasting, Pass-the-Hash, AS-REP Roast), веб-уязвимостях OWASP Top 10. Нашёл критические RCE в реальных системах, выполнил полный захват домена.</p>
+      <p>Внутренние и внешние пентесты. AD: Kerberoasting, Pass-the-Hash, AS-REP Roast. Веб: OWASP Top 10. Критические RCE в реальных системах, полный захват домена.</p>
     </div>
     <div class="about-card">
       <h3>// Разработка</h3>
-      <p>Full Stack на PHP/Laravel + Vue.js с PostgreSQL. Пишу кастомные инструменты для пентеста на Python и C++. Писал backend API, интегрировал платёжные системы, синхронизацию с 1С. Сократил время загрузки с 2.5 до 0.9 сек.</p>
+      <p>Full Stack: PHP/Laravel + Vue.js + PostgreSQL. Кастомные инструменты на C++ и Bash. Backend API, интеграции 1С и платёжных систем. Оптимизация загрузки: 2.5 → 0.9 сек.</p>
     </div>
     <div class="about-card">
       <h3>// CTF & Инструменты</h3>
-      <p>Занимаю первое место по России на TryHackMe King of the Hill. Прошёл полные пути Red Team, Jr Penetration Tester, Web Fundamentals. Пишу открытые инструменты для сообщества — whyxss, whyasdscan, whytrix.</p>
+      <p>#1 по России на TryHackMe King of the Hill. Пути: Red Team, Jr Penetration Tester, Web Fundamentals. Открытые инструменты: whyxss, whyasdscan, whytrix.</p>
     </div>
   </div>
 </section>
@@ -1428,79 +1391,75 @@
       <div class="skill-group">
         <div class="skill-group-title">// Red Team & C2</div>
         <div class="skill-tags">
+          <span class="stag hot">red team</span>
+          <span class="stag hot">C2</span>
           <span class="stag hot">Cobalt Strike</span>
-          <span class="stag hot">Havoc C2</span>
+          <span class="stag hot">Havoc</span>
           <span class="stag hot">Sliver</span>
           <span class="stag">Metasploit</span>
-          <span class="stag">Empire</span>
-          <span class="stag">Covenant</span>
-          <span class="stag">BOF (Beacon Object Files)</span>
+          <span class="stag">BOF</span>
           <span class="stag">OPSEC</span>
-          <span class="stag">Implant Dev</span>
+          <span class="stag">malware dev</span>
         </div>
       </div>
 
       <div class="skill-group">
-        <div class="skill-group-title">// Пентест & ИБ</div>
+        <div class="skill-group-title">// Тестирование</div>
         <div class="skill-tags">
+          <span class="stag hot">Black box testing</span>
+          <span class="stag hot">White box testing</span>
           <span class="stag hot">Burp Suite</span>
-          <span class="stag hot">Nmap</span>
-          <span class="stag hot">SQLmap</span>
+          <span class="stag">Ручное тестирование</span>
+          <span class="stag">vuln scan</span>
+          <span class="stag">Nessus</span>
           <span class="stag">Wireshark</span>
-          <span class="stag">Responder</span>
-          <span class="stag">ntlmrelayx</span>
-          <span class="stag">Nikto</span>
-          <span class="stag">Dirbuster</span>
-          <span class="stag">netcat</span>
-          <span class="stag">OSINT</span>
-          <span class="stag">Burp Collaborator</span>
+          <span class="stag">privesc</span>
         </div>
       </div>
 
       <div class="skill-group">
-        <div class="skill-group-title">// Атаки и техники</div>
+        <div class="skill-group-title">// Атаки & техники</div>
         <div class="skill-tags">
+          <span class="stag hot">RCE</span>
+          <span class="stag hot">XSS</span>
           <span class="stag hot">OWASP Top 10</span>
-          <span class="stag hot">Kerberoasting</span>
-          <span class="stag hot">Pass-the-Hash</span>
-          <span class="stag">AS-REP Roast</span>
-          <span class="stag">SQLi / XSS</span>
+          <span class="stag">SQLi</span>
           <span class="stag">CSRF / SSRF</span>
-          <span class="stag">IDOR / RCE</span>
+          <span class="stag">IDOR</span>
+          <span class="stag">Kerberoasting</span>
+          <span class="stag">Pass-the-Hash</span>
           <span class="stag">Lateral Movement</span>
-          <span class="stag">Privilege Escalation</span>
-          <span class="stag">AV/EDR Bypass</span>
           <span class="stag">MITRE ATT&CK</span>
-          <span class="stag">Payload Obfuscation</span>
+          <span class="stag">AV/EDR Bypass</span>
         </div>
       </div>
 
       <div class="skill-group">
         <div class="skill-group-title">// Разработка</div>
         <div class="skill-tags">
-          <span class="stag hot">Python</span>
-          <span class="stag hot">PHP / Laravel</span>
-          <span class="stag hot">Vue.js</span>
-          <span class="stag">C++</span>
-          <span class="stag">Bash</span>
+          <span class="stag hot">C++</span>
+          <span class="stag hot">Bash</span>
+          <span class="stag hot">web</span>
+          <span class="stag">Python</span>
+          <span class="stag">PHP / Laravel</span>
+          <span class="stag">Vue.js</span>
           <span class="stag">PostgreSQL</span>
-          <span class="stag">HTML / CSS / JS</span>
           <span class="stag">REST API</span>
           <span class="stag">Git</span>
         </div>
       </div>
 
       <div class="skill-group">
-        <div class="skill-group-title">// Системы и сети</div>
+        <div class="skill-group-title">// Инфраструктура</div>
         <div class="skill-tags">
-          <span class="stag hot">Linux (Kali/Ubuntu)</span>
-          <span class="stag hot">Windows AD</span>
-          <span class="stag">TCP/IP / DNS</span>
-          <span class="stag">HTTP/S · SSH · SMB</span>
-          <span class="stag">PowerShell</span>
-          <span class="stag">WMI / COM</span>
-          <span class="stag">Named Pipes</span>
-          <span class="stag">Active Directory</span>
+          <span class="stag hot">network</span>
+          <span class="stag hot">Active Directory</span>
+          <span class="stag hot">Docker</span>
+          <span class="stag hot">Kubernetes</span>
+          <span class="stag hot">AWS</span>
+          <span class="stag">trivy</span>
+          <span class="stag">Linux (Kali/Ubuntu)</span>
+          <span class="stag">Windows AD</span>
           <span class="stag">Pivoting / Tunneling</span>
         </div>
       </div>
@@ -1532,13 +1491,12 @@
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
       </div>
       <h3>Пентест</h3>
-      <p>Тестирование на проникновение по методологии реального атакующего. Внутренние и внешние пентесты, веб-приложения, Active Directory.</p>
+      <p>Внутренние и внешние пентесты. Веб-приложения, Active Directory. Отчёт с PoC и шагами по исправлению.</p>
       <ul class="svc-list">
-        <li>Разведка: OSINT, сканирование сети, перечисление сервисов</li>
-        <li>Веб: SQLi, XSS, CSRF, SSRF, IDOR, RCE через Burp Suite</li>
-        <li>Инфраструктура: AD-атаки, Kerberoasting, Pass-the-Hash</li>
-        <li>Отчёт с PoC, скриншотами и шагами по исправлению</li>
-        <li>Кастомные эксплойты на Python / Bash / C++</li>
+        <li>OSINT, сканирование, перечисление сервисов</li>
+        <li>SQLi, XSS, CSRF, SSRF, IDOR, RCE через Burp Suite</li>
+        <li>AD: Kerberoasting, Pass-the-Hash</li>
+        <li>Кастомные эксплойты на C++ / Bash</li>
       </ul>
     </div>
 
@@ -1547,13 +1505,13 @@
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
       </div>
       <h3>Red Team операция</h3>
-      <p>Полноценная эмуляция реального атакующего. От начального доступа и закрепления до lateral movement и захвата целевых систем.</p>
+      <p>Эмуляция реального атакующего. Initial access → lateral movement → захват целей.</p>
       <ul class="svc-list">
-        <li>Phishing / Spear Phishing с кастомными пейлоадами</li>
+        <li>Phishing с кастомными пейлоадами</li>
         <li>C2 инфраструктура (Havoc, Sliver, Cobalt Strike)</li>
         <li>Lateral movement, pivoting, persistence</li>
         <li>Обход EDR/AV, payload obfuscation</li>
-        <li>Финальный отчёт по MITRE ATT&CK с рекомендациями</li>
+        <li>Отчёт по MITRE ATT&CK с рекомендациями</li>
       </ul>
     </div>
 
@@ -1562,13 +1520,12 @@
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
       </div>
       <h3>Сайт под ключ</h3>
-      <p>Full Stack разработка коммерческих проектов: корпоративные сайты, интернет-магазины, API-интеграции. С нуля до продакшна.</p>
+      <p>Full Stack: корпоративные сайты, интернет-магазины, API-интеграции.</p>
       <ul class="svc-list">
         <li>Backend: PHP/Laravel + PostgreSQL, REST API</li>
-        <li>Frontend: Vue.js, адаптивная вёрстка HTML/CSS/JS</li>
+        <li>Frontend: Vue.js, адаптивная вёрстка</li>
         <li>Интеграции: 1С, платёжные системы, СДЭК</li>
-        <li>Личный кабинет, каталог, корзина, программа лояльности</li>
-        <li>Базовая защита: CSRF-токены, WAF, мониторинг трафика</li>
+        <li>CSRF-токены, WAF, мониторинг трафика</li>
       </ul>
     </div>
 
@@ -1577,11 +1534,10 @@
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
       </div>
       <h3>Кастомные инструменты</h3>
-      <p>Разработка утилит для пентеста и автоматизации: сканеры, эксплойты, обходчики защит, кастомные агенты.</p>
+      <p>Утилиты для пентеста: сканеры, эксплойты, обходчики защит, кастомные агенты.</p>
       <ul class="svc-list">
-        <li>Python-инструменты: сканеры, пейлоад-генераторы, автоматизация</li>
         <li>C++ утилиты: обход AV/EDR, reverse shell, инжекторы</li>
-        <li>Bash-скрипты для автоматизации пентест-задач</li>
+        <li>Bash-скрипты для автоматизации пентеста</li>
         <li>Кастомные BOF для Cobalt Strike / Havoc</li>
       </ul>
     </div>
@@ -1601,7 +1557,7 @@
         <div class="exp-title">Red Team Operator / Pentester</div>
         <div class="exp-company">SecLab Solutions · Москва</div>
         <div class="exp-body">
-          Проведение полноценных Red Team операций и внутренних/внешних пентестов. Развёртывание C2 инфраструктуры на базе Havoc и Sliver. Эмуляция APT-акторов по MITRE ATT&CK от initial access до domain dominance. Атаки на AD: Kerberoasting, Pass-the-Hash, AS-REP Roast, Relay через Responder/ntlmrelayx. Веб: SQLi, XSS, CSRF, SSRF, IDOR, RCE. Разработка кастомных пейлоадов с обходом EDR. Отчёты в Confluence/Jira с полными PoC.
+          Red Team операции и внутренние/внешние пентесты. C2 на Havoc и Sliver. Эмуляция APT по MITRE ATT&CK от initial access до domain dominance. AD: Kerberoasting, Pass-the-Hash, AS-REP Roast, Relay. Веб: SQLi, XSS, CSRF, SSRF, IDOR, RCE. Кастомные пейлоады с обходом EDR. Отчёты в Confluence/Jira.
         </div>
         <div class="exp-tags">
           <span class="exp-tag">12 пентест-сессий</span>
@@ -1618,7 +1574,7 @@
         <div class="exp-title">Full Stack Developer</div>
         <div class="exp-company">Panther Energy · Пятигорск · pantherenergy.ru</div>
         <div class="exp-body">
-          Разработка и поддержка корпоративного интернет-магазина: PHP/Laravel + PostgreSQL + Vue.js. Backend API для интеграции с 1С (товары, остатки, заказы), Redis-очереди. Фронтенд: корзина, личный кабинет, адаптивная вёрстка, админка. Интеграция ЮKassa и СДЭК. Запустил 3 крупных релиза. Сократил загрузку страниц с 2.5 до 0.9 сек через оптимизацию кэша.
+          Корпоративный интернет-магазин: PHP/Laravel + PostgreSQL + Vue.js. Backend API для интеграции с 1С, Redis-очереди. Корзина, личный кабинет, адаптивная вёрстка, админка. Интеграция ЮKassa и СДЭК. Загрузка с 2.5 до 0.9 сек через оптимизацию кэша.
         </div>
         <div class="exp-tags">
           <span class="exp-tag">Laravel / Vue.js</span>
@@ -1639,17 +1595,15 @@
   <h2 class="section-title">Мои инструменты</h2>
   <p class="section-sub">Открытые инструменты для пентеста. Написаны на Python. <a href="https://github.com/whyasd666/t00ls" target="_blank" rel="noopener" style="color:var(--red);text-decoration:none;border-bottom:1px solid rgba(255,26,26,0.3);">github.com/whyasd666/t00ls →</a></p>
 
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+  <div class="tools-3col" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
 
-    <!-- whyxss -->
-    <div class="about-card" style="grid-column:span 1;">
+    <div class="about-card">
       <h3 style="font-size:16px;font-family:var(--mono);color:var(--red);margin-bottom:8px;">// whyxss.py</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Автоматизированный сканер XSS-уязвимостей. Обнаруживает reflected и stored XSS, тестирует формы и URL-параметры с обходом базовых фильтров.</p>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Сканер XSS. Reflected и stored XSS, формы и URL-параметры с обходом фильтров.</p>
       <div style="background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:14px;font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">
         <span style="color:var(--red);">$</span> python3 whyxss.py -u https://target.com<br>
         <span style="color:#4ADE80;">[+]</span> Scanning for XSS vectors...<br>
         <span style="color:#4ADE80;">[+]</span> Found: /search?q= → reflected XSS<br>
-        <span style="color:#4ADE80;">[+]</span> Payload: &lt;script&gt;alert(1)&lt;/script&gt;<br>
         <span style="color:var(--red);">[!]</span> 3 vulnerabilities found
       </div>
       <a href="https://github.com/whyasd666/t00ls/blob/main/whyxss.py" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-family:var(--mono);font-size:11px;color:rgba(255,26,26,0.7);text-decoration:none;letter-spacing:0.08em;">
@@ -1658,15 +1612,13 @@
       </a>
     </div>
 
-    <!-- whyasdscan -->
-    <div class="about-card" style="grid-column:span 1;">
+    <div class="about-card">
       <h3 style="font-size:16px;font-family:var(--mono);color:var(--red);margin-bottom:8px;">// whyasdscan.py</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Многопоточный сканер портов и сервисов с определением баннеров. Поддерживает CIDR-диапазоны, экспорт результатов и интеграцию с другими тулами.</p>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Многопоточный сканер портов с определением баннеров. CIDR-диапазоны, экспорт результатов.</p>
       <div style="background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:14px;font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">
         <span style="color:var(--red);">$</span> python3 whyasdscan.py -t 192.168.1.0/24<br>
         <span style="color:#4ADE80;">[+]</span> Scanning 256 hosts...<br>
         <span style="color:#4ADE80;">[+]</span> 192.168.1.5:22 — OpenSSH 8.9<br>
-        <span style="color:#4ADE80;">[+]</span> 192.168.1.5:80 — Apache 2.4.52<br>
         <span style="color:#4ADE80;">[+]</span> 192.168.1.10:445 — SMB open
       </div>
       <a href="https://github.com/whyasd666/t00ls/blob/main/whyasdscan.py" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-family:var(--mono);font-size:11px;color:rgba(255,26,26,0.7);text-decoration:none;letter-spacing:0.08em;">
@@ -1675,15 +1627,13 @@
       </a>
     </div>
 
-    <!-- whytrix -->
-    <div class="about-card" style="grid-column:span 1;">
+    <div class="about-card">
       <h3 style="font-size:16px;font-family:var(--mono);color:var(--red);margin-bottom:8px;">// whytrix.py</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Инструмент для генерации и обфускации пейлоадов. Поддерживает несколько техник кодирования и обхода базовых WAF и сигнатурных фильтров.</p>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Генератор и обфускатор пейлоадов. Несколько техник кодирования, обход WAF и сигнатурных фильтров.</p>
       <div style="background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:14px;font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">
         <span style="color:var(--red);">$</span> python3 whytrix.py --type xss --encode b64<br>
         <span style="color:#4ADE80;">[+]</span> Generating payloads...<br>
         <span style="color:#4ADE80;">[+]</span> Base64: PHNjcmlwdD5...<br>
-        <span style="color:#4ADE80;">[+]</span> URL-encoded: %3Cscript%3E...<br>
         <span style="color:#4ADE80;">[+]</span> 12 variants generated
       </div>
       <a href="https://github.com/whyasd666/t00ls/blob/main/whytrix.py" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-family:var(--mono);font-size:11px;color:rgba(255,26,26,0.7);text-decoration:none;letter-spacing:0.08em;">
@@ -1709,7 +1659,7 @@
       <div class="section-label">06 / tryhackme</div>
       <h2 class="section-title">TryHackMe</h2>
       <p style="font-size:16px;color:var(--muted);line-height:1.7;margin-bottom:16px;">
-        Занимаю первое место по России в режиме King of the Hill — соревновательном формате захвата и удержания машин в реальном времени.
+        #1 по России в King of the Hill — захват и удержание машин в реальном времени.
       </p>
       <div class="thm-rank">#1 RU</div>
       <p style="font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:24px;">King of the Hill · Russia</p>
@@ -1724,22 +1674,9 @@
 
     <div class="thm-platform-box">
       <div style="font-family:var(--mono);font-size:11px;color:var(--red);letter-spacing:0.15em;margin-bottom:16px;">// ПРОФИЛЬ</div>
-
-      <!-- ═══════════════════════════════════════════════
-           ВСТАВЬ СВОЙ ВИДЖЕТ TRYHACKME СЮДА
-           Например:
-           <iframe src="https://tryhackme.com/api/v2/badges/..."
-             style="border:none;width:100%;"></iframe>
-           ═══════════════════════════════════════════════ -->
-      <div id="thm-widget-slot" style="min-height:80px;">
-        <!-- ВИДЖЕТ -->
-      </div>
+      <div id="thm-widget-slot" style="min-height:80px;"></div>
       <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=1637528" style='border:none;'></iframe>
-      <a href="https://tryhackme.com/p/whyasd666" target="_blank" rel="noopener" style="
-        display:inline-flex;align-items:center;gap:8px;margin-top:16px;
-        font-family:'Share Tech Mono',monospace;font-size:12px;
-        color:rgba(255,26,26,0.7);text-decoration:none;letter-spacing:0.08em;transition:color 0.2s;
-      " onmouseover="this.style.color='#FF1A1A'" onmouseout="this.style.color='rgba(255,26,26,0.7)'">
+      <a href="https://tryhackme.com/p/whyasd666" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(255,26,26,0.7);text-decoration:none;letter-spacing:0.08em;transition:color 0.2s;" onmouseover="this.style.color='#FF1A1A'" onmouseout="this.style.color='rgba(255,26,26,0.7)'">
         <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
         tryhackme.com/p/whyasd666
       </a>
@@ -1855,7 +1792,7 @@
           <span>Открыт к предложениям</span>
         </div>
         <h3>Готов к работе</h3>
-        <p>Рассматриваю заказы на пентест, Red Team операции, разработку сайтов и кастомных инструментов. Также ищу постоянную занятость в сфере информационной безопасности.</p>
+        <p>Рассматриваю заказы на пентест, Red Team операции, разработку и кастомные инструменты. Ищу постоянную занятость в ИБ.</p>
         <div class="avail-items">
           <div class="avail-item">Полная занятость или проектная работа</div>
           <div class="avail-item">Удалённый формат или офис</div>
@@ -1874,7 +1811,6 @@
 </footer>
 
 <script>
-  // ── CURSOR (desktop only) ──────────────────────
   const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
   const dot  = document.getElementById('cursorDot');
   const ring = document.getElementById('cursorRing');
@@ -1893,13 +1829,11 @@
     });
   }
 
-  // ── NAV SCROLL ─────────────────────────────────
   const nav = document.getElementById('mainNav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
 
-  // ── MOBILE MENU ────────────────────────────────
   const burger    = document.getElementById('burgerBtn');
   const mobileNav = document.getElementById('mobileNav');
 
@@ -1920,7 +1854,6 @@
   document.getElementById('mobileClose').addEventListener('click', closeMob);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMob(); });
 
-  // ── SCROLL REVEAL ──────────────────────────────
   const ro = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('up'); ro.unobserve(e.target); }
@@ -1928,7 +1861,6 @@
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-  // ── ANIMATED COUNTERS ──────────────────────────
   const co = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting && e.target.dataset.count) {
@@ -1947,7 +1879,6 @@
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-count]').forEach(el => co.observe(el));
 
-  // ── SMOOTH SCROLL ──────────────────────────────
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
@@ -1961,8 +1892,6 @@
     });
   });
 
-  // ── IOS VIEWPORT HEIGHT FIX ────────────────────
-  // Фикс для Safari на iPhone — 100vh учитывает адресную строку
   function setVh() {
     document.documentElement.style.setProperty('--real-vh', window.innerHeight * 0.01 + 'px');
   }
