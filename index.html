@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Whyasd</title>
 <link rel="icon" href="icon.jpg" type="image/x-icon">
-<meta name="description" content="Red Team оператор, пентестер и Full Stack разработчик. Пятигорск. Заказать пентест или сайт под ключ.">
+<meta name="description" content="Full Stack разработчик и AppSec / DevSecOps инженер. Пятигорск. Заказать веб-разработку или ИБ-аудит.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Unbounded:wght@300;400;700;900&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -26,10 +26,10 @@
     --display:   'Unbounded', sans-serif;
     --body:      'Space Grotesk', sans-serif;
   }
-
+ 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-
+ 
   body {
     font-family: var(--body);
     background: var(--bg);
@@ -37,7 +37,7 @@
     overflow-x: hidden;
     cursor: none;
   }
-
+ 
   /* ── CUSTOM CURSOR ─────────────────────────────── */
   .cursor {
     position: fixed;
@@ -63,7 +63,7 @@
     opacity: 0.6;
   }
   .cursor-ring.expand { width: 56px; height: 56px; border-color: rgba(255,26,26,0.4); }
-
+ 
   /* ── SCANLINES OVERLAY ─────────────────────────── */
   body::before {
     content: '';
@@ -79,7 +79,7 @@
     pointer-events: none;
     z-index: 1000;
   }
-
+ 
   /* ── NOISE TEXTURE ─────────────────────────────── */
   body::after {
     content: '';
@@ -90,7 +90,7 @@
     z-index: 999;
     opacity: 0.4;
   }
-
+ 
   /* ── GRID BACKGROUND ───────────────────────────── */
   .grid-bg {
     position: fixed;
@@ -103,7 +103,7 @@
     z-index: 0;
     mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 20%, transparent 100%);
   }
-
+ 
   /* ── NAV ───────────────────────────────────────── */
   nav {
     position: fixed;
@@ -153,7 +153,7 @@
   }
   .nav-links a:hover { color: var(--text); }
   .nav-links a:hover::after { width: 100%; }
-
+ 
   /* ── HERO ──────────────────────────────────────── */
   .hero {
     min-height: 100vh;
@@ -164,7 +164,7 @@
     padding: 120px 40px 80px;
     overflow: hidden;
   }
-
+ 
   .hero-glow {
     position: absolute;
     width: 800px; height: 800px;
@@ -180,7 +180,7 @@
     bottom: 0; right: 5%;
     pointer-events: none;
   }
-
+ 
   .hero-inner {
     position: relative;
     z-index: 2;
@@ -192,7 +192,7 @@
     gap: 80px;
     align-items: center;
   }
-
+ 
   .hero-tag {
     font-family: var(--mono);
     font-size: 11px;
@@ -209,7 +209,7 @@
     width: 24px; height: 1px;
     background: var(--red);
   }
-
+ 
   .hero-name {
     font-family: var(--display);
     font-size: clamp(42px, 6vw, 76px);
@@ -220,7 +220,7 @@
   }
   .hero-name .line-red { color: var(--red); }
   .hero-name .line-dim { color: rgba(232,232,232,0.25); font-weight: 300; }
-
+ 
   .hero-role {
     font-family: var(--mono);
     font-size: 15px;
@@ -229,7 +229,7 @@
     letter-spacing: 0.04em;
   }
   .hero-role .sep { color: var(--red); margin: 0 8px; }
-
+ 
   .hero-desc {
     font-size: 16px;
     color: rgba(232,232,232,0.6);
@@ -237,7 +237,7 @@
     max-width: 520px;
     margin-bottom: 48px;
   }
-
+ 
   .hero-contacts {
     display: flex;
     flex-direction: column;
@@ -267,7 +267,7 @@
     background: var(--red-glow);
   }
   .contact-icon svg { width: 14px; height: 14px; }
-
+ 
   /* ── HERO RIGHT — TERMINAL CARD ────────────────── */
   .terminal-card {
     background: var(--bg2);
@@ -318,7 +318,7 @@
     margin-left: 2px;
   }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
+ 
   /* ── SECTION BASE ──────────────────────────────── */
   section {
     position: relative;
@@ -338,7 +338,7 @@
     margin: 0 auto;
     padding: 100px 40px;
   }
-
+ 
   .section-label {
     font-family: var(--mono);
     font-size: 11px;
@@ -358,7 +358,7 @@
     background: var(--red);
     opacity: 0.5;
   }
-
+ 
   .section-title {
     font-family: var(--display);
     font-size: clamp(28px, 4vw, 44px);
@@ -373,7 +373,7 @@
     margin-bottom: 60px;
     line-height: 1.6;
   }
-
+ 
   /* ── ABOUT / STATS ─────────────────────────────── */
   .stats-row {
     display: grid;
@@ -405,7 +405,7 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
-
+ 
   .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -445,7 +445,7 @@
     color: rgba(232,232,232,0.7);
     line-height: 1.7;
   }
-
+ 
   /* ── SKILLS ────────────────────────────────────── */
   .skills-grid {
     display: grid;
@@ -496,7 +496,7 @@
     color: var(--red);
     font-weight: 600;
   }
-
+ 
   /* ── SERVICES ──────────────────────────────────── */
   .services-grid {
     display: grid;
@@ -569,7 +569,7 @@
     left: 0;
     color: var(--red);
   }
-
+ 
   /* ── EXPERIENCE ────────────────────────────────── */
   .exp-timeline {
     position: relative;
@@ -635,7 +635,7 @@
     font-size: 11px;
     color: var(--muted);
   }
-
+ 
   /* ── TRYHACKME ─────────────────────────────────── */
   .thm-section {
     background: var(--bg2);
@@ -702,7 +702,7 @@
     color: rgba(255,26,26,0.04);
     line-height: 1;
   }
-
+ 
   /* ── CERTS ─────────────────────────────────────── */
   .certs-grid {
     display: grid;
@@ -758,7 +758,7 @@
     background: rgba(255,26,26,0.14);
     border-color: rgba(255,26,26,0.5);
   }
-
+ 
   /* ── CONTACT SECTION ───────────────────────────── */
   .contact-grid {
     display: grid;
@@ -809,7 +809,7 @@
     font-size: 15px;
     color: var(--text);
   }
-
+ 
   .avail-box {
     background: var(--bg2);
     border: 1px solid var(--line);
@@ -867,7 +867,7 @@
     content: '→';
     color: var(--red);
   }
-
+ 
   /* ── FOOTER ────────────────────────────────────── */
   footer {
     position: relative;
@@ -884,7 +884,7 @@
     color: var(--muted);
   }
   footer span { color: var(--red); }
-
+ 
   /* ── REVEAL ANIMATION ──────────────────────────── */
   .reveal {
     opacity: 0;
@@ -892,20 +892,20 @@
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
   .reveal.up { opacity: 1; transform: translateY(0); }
-
+ 
   /* ── WHYASD ANIMATED TITLE ────────────────────── */
   .hero-name {
     position: relative;
     display: inline-block;
     line-height: 1;
   }
-
+ 
   .name-letters {
     display: inline-flex;
     gap: 0.02em;
     position: relative;
   }
-
+ 
   .nl {
     display: inline-block;
     color: var(--red);
@@ -928,14 +928,14 @@
   .nl:nth-child(4) { animation-delay: 0.34s; }
   .nl:nth-child(5) { animation-delay: 0.42s; }
   .nl:nth-child(6) { animation-delay: 0.50s; }
-
+ 
   @keyframes letterIn {
     0%   { opacity:0; transform: translateY(40px) skewX(-8deg); }
     60%  { opacity:1; transform: translateY(-6px) skewX(2deg); }
     80%  { transform: translateY(3px) skewX(-1deg); }
     100% { opacity:1; transform: translateY(0) skewX(0); }
   }
-
+ 
   .nl.glow-pulse {
     animation: letterIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards,
                namePulse 3s ease-in-out 1s infinite;
@@ -944,7 +944,7 @@
     0%,100% { text-shadow: 0 0 20px rgba(255,26,26,0.6), 0 0 60px rgba(255,26,26,0.2); }
     50%     { text-shadow: 0 0 30px rgba(255,26,26,0.9), 0 0 80px rgba(255,26,26,0.4), 0 0 120px rgba(255,26,26,0.15); }
   }
-
+ 
   .name-glitch-wrap {
     position: relative;
     display: inline-block;
@@ -986,7 +986,7 @@
     91%  { opacity:1; transform:translate(2px, 0); }
     93%  { opacity:0; }
   }
-
+ 
   .name-cursor {
     display: inline-block;
     width: clamp(6px, 1.2vw, 10px);
@@ -1004,7 +1004,7 @@
     0%,100% { opacity:1; }
     50%     { opacity:0; }
   }
-
+ 
   .name-scanline {
     position: absolute;
     left: -8px; right: -8px;
@@ -1019,7 +1019,7 @@
     0%   { top: 0%;   opacity: 1; }
     100% { top: 110%; opacity: 0; }
   }
-
+ 
   /* ── MOBILE MENU ───────────────────────────────── */
   .burger {
     display: none;
@@ -1040,7 +1040,7 @@
   .burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
   .burger.open span:nth-child(2) { opacity: 0; }
   .burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
+ 
   .mobile-nav {
     display: none;
     position: fixed;
@@ -1076,9 +1076,9 @@
     padding: 8px;
     -webkit-tap-highlight-color: transparent;
   }
-
+ 
   /* ── RESPONSIVE ────────────────────────────────── */
-
+ 
   @media(max-width: 1024px) {
     .hero-inner { grid-template-columns: 1fr; gap: 0; }
     .terminal-card { display: none; }
@@ -1088,12 +1088,12 @@
     .services-grid { grid-template-columns: repeat(2, 1fr); }
     .exp-timeline { padding-left: 24px; }
   }
-
+ 
   @media(max-width: 768px) {
     nav { padding: 14px 20px; }
     .nav-links { display: none; }
     .burger { display: flex; }
-
+ 
     section { padding: 56px 20px; }
     .section-full > .inner { padding: 56px 20px; }
     .hero {
@@ -1104,107 +1104,107 @@
     .hero-role { font-size: 13px; }
     .hero-desc { font-size: 15px; }
     .hero-contacts { gap: 10px; }
-
+ 
     .stats-row { grid-template-columns: repeat(2, 1fr); }
     .stat-box { padding: 24px 16px; }
     .stat-num { font-size: 32px; }
-
+ 
     .about-grid { grid-template-columns: 1fr; gap: 16px; }
     .about-card { padding: 22px; }
-
+ 
     .skills-grid { grid-template-columns: 1fr; gap: 14px; }
     .skill-group { padding: 20px; }
-
+ 
     .services-grid { grid-template-columns: 1fr; gap: 16px; }
     .svc-card { padding: 28px 24px; }
     .svc-card::after { font-size: 48px; }
-
+ 
     .exp-timeline { padding-left: 20px; }
     .exp-item { margin-bottom: 36px; }
     .exp-item::before { left: -26px; }
     .exp-title { font-size: 17px; }
     .exp-body { font-size: 14px; }
-
+ 
     .thm-inner { padding: 56px 20px; gap: 32px; }
     .thm-rank { font-size: 40px; }
     .thm-platform-box { padding: 24px; }
-
+ 
     /* Фикс для TOOLS на мобиле */
     #tools .tools-3col { grid-template-columns: 1fr !important; }
-
+ 
     .certs-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .cert-card { padding: 20px 16px; }
-
+ 
     .contact-grid { grid-template-columns: 1fr; gap: 32px; }
     .ccard { padding: 16px 18px; gap: 14px; }
     .avail-box { padding: 28px 24px; }
-
+ 
     footer { flex-direction: column; gap: 6px; text-align: center; padding: 20px; }
     footer p { font-size: 11px; }
-
+ 
     body { cursor: auto; }
     .cursor-dot, .cursor-ring { display: none; }
   }
-
+ 
   @media(max-width: 480px) {
     nav { padding: 12px 16px; }
     .nav-logo { font-size: 11px; }
-
+ 
     section { padding: 48px 16px; }
     .section-full > .inner { padding: 48px 16px; }
     .hero { padding: 80px 16px 48px; }
-
+ 
     .hero-desc { font-size: 14px; margin-bottom: 32px; }
     .contact-line { font-size: 13px; }
     .contact-icon { width: 28px; height: 28px; }
-
+ 
     .section-title { font-size: 24px; }
     .section-sub { font-size: 14px; margin-bottom: 36px; }
-
+ 
     .stats-row { gap: 1px; }
     .stat-box { padding: 20px 12px; }
     .stat-num { font-size: 28px; }
     .stat-lbl { font-size: 10px; }
-
+ 
     .about-card { padding: 18px; }
     .about-card p { font-size: 14px; }
-
+ 
     .skill-group { padding: 16px; }
     .stag { font-size: 11px; padding: 4px 10px; }
-
+ 
     .svc-card { padding: 24px 18px; }
     .svc-card::after { display: none; }
     .svc-card h3 { font-size: 16px; }
     .svc-list li { font-size: 13px; }
-
+ 
     .exp-tags { gap: 6px; }
     .exp-tag { font-size: 10px; }
-
+ 
     .thm-inner { padding: 48px 16px; }
     .thm-rank { font-size: 36px; }
     .thm-badge { font-size: 11px; padding: 8px 12px; }
     .thm-platform-box { padding: 18px; }
-
+ 
     .certs-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
     .cert-card { padding: 16px 12px; }
     .cert-svg-icon { width: 32px; height: 32px; margin-bottom: 10px; }
     .cert-name { font-size: 12px; }
-
+ 
     .ccard-val { font-size: 13px; }
     .avail-box { padding: 22px 18px; }
     .avail-box h3 { font-size: 18px; }
     .avail-box p { font-size: 14px; }
-
+ 
     .mobile-nav { gap: 20px; }
   }
-
+ 
   @media(max-width: 360px) {
     .hero { padding: 76px 14px 44px; }
     section { padding: 40px 14px; }
     .section-full > .inner { padding: 40px 14px; }
     .certs-grid { grid-template-columns: 1fr; }
   }
-
+ 
   @media(hover: none) {
     .about-card:hover,
     .skill-group:hover,
@@ -1215,7 +1215,7 @@
     .stag:hover { background: rgba(255,26,26,0.06); border-color: rgba(255,26,26,0.2); color: rgba(232,232,232,0.8); }
     .nl.glow-pulse { animation: letterIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards, namePulse 3s ease-in-out 1s infinite; }
   }
-
+ 
   @media(prefers-reduced-motion: reduce) {
     .nl { animation: none !important; opacity: 1; transform: none; }
     .name-glitch-wrap::before, .name-glitch-wrap::after { animation: none !important; }
@@ -1226,12 +1226,12 @@
 </style>
 </head>
 <body>
-
+ 
 <div class="grid-bg"></div>
-
+ 
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-
+ 
 <!-- Mobile nav -->
 <div class="mobile-nav" id="mobileNav">
   <span class="mobile-close" id="mobileClose">✕</span>
@@ -1243,7 +1243,7 @@
   <a href="#tryhackme" onclick="closeMob()">tryhackme</a>
   <a href="#contact" onclick="closeMob()">контакт</a>
 </div>
-
+ 
 <!-- NAV -->
 <nav id="mainNav">
   <div class="nav-logo">whyasd@sec<span>:~$</span></div>
@@ -1260,14 +1260,14 @@
     <span></span><span></span><span></span>
   </div>
 </nav>
-
+ 
 <!-- ═══ HERO ═══════════════════════════════════════════ -->
 <div class="hero">
   <div class="hero-glow"></div>
   <div class="hero-glow-2"></div>
   <div class="hero-inner">
     <div>
-      <div class="hero-tag">Red Teamer · Pentester · Web Developer</div>
+      <div class="hero-tag">Full Stack Developer · AppSec / DevSecOps Engineer</div>
       <h1 class="hero-name" aria-label="WHYASD">
         <div class="name-glitch-wrap" data-text="WHYASD">
           <div class="name-scanline"></div>
@@ -1278,10 +1278,10 @@
         </div>
       </h1>
       <p class="hero-role">
-        Red Teamer<span class="sep">/</span>Pentester<span class="sep">/</span>Full Stack Dev
+        Full Stack Developer<span class="sep">/</span>AppSec<span class="sep">/</span>DevSecOps
       </p>
       <p class="hero-desc">
-        20 лет. Пятигорск. Red Team операции, пентест, веб-разработка. Кастомные инструменты для обхода защит. #1 KoTH по России на TryHackMe.
+        20 лет. Пятигорск. Сочетаю 2 года коммерческой веб-разработки с глубокими практическими знаниями Offensive Security. #1 KoTH по России на TryHackMe.
       </p>
       <div class="hero-contacts">
         <a class="contact-line" href="tel:+79187890009">
@@ -1304,7 +1304,7 @@
         </a>
       </div>
     </div>
-
+ 
     <!-- Terminal card -->
     <div class="terminal-card">
       <div class="terminal-bar">
@@ -1317,12 +1317,10 @@
         <span class="t-line"><span class="t-prompt">➜</span> <span class="t-cmd">whoami</span></span>
         <span class="t-line t-out">whyasd</span>
         <span class="t-line" style="margin-top:8px"><span class="t-prompt">➜</span> <span class="t-cmd">cat skills.txt</span></span>
-        <span class="t-line t-out"><span class="t-green">✓</span> Red Team Operations</span>
-        <span class="t-line t-out"><span class="t-green">✓</span> Black/White Box Testing</span>
-        <span class="t-line t-out"><span class="t-green">✓</span> C2 (Cobalt Strike, Havoc, Sliver)</span>
-        <span class="t-line t-out"><span class="t-green">✓</span> OWASP Top 10 / RCE / XSS</span>
-        <span class="t-line t-out"><span class="t-green">✓</span> malware dev / OPSEC</span>
-        <span class="t-line t-out"><span class="t-green">✓</span> Docker / K8s / AWS</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> Full Stack Web Dev (PHP/Laravel, Vue.js)</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> AppSec / Secure SDLC (Trivy, OWASP Top 10)</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> Infrastructure & DevOps (Docker, K8s, CI/CD)</span>
+        <span class="t-line t-out"><span class="t-green">✓</span> Offensive Security (Burp Suite, AD, Network)</span>
         <span class="t-line" style="margin-top:8px"><span class="t-prompt">➜</span> <span class="t-cmd">cat rank.txt</span></span>
         <span class="t-line t-out"><span class="t-red2">#1</span> Russia — TryHackMe KoTH</span>
         <span class="t-line" style="margin-top:8px"><span class="t-prompt">➜</span> <span class="t-cmd">./status</span></span>
@@ -1332,22 +1330,18 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ═══ ABOUT ═══════════════════════════════════════════ -->
 <div id="about">
 <section class="reveal">
   <div class="section-label">01 / обо мне</div>
   <h2 class="section-title">Кто я</h2>
-  <p class="section-sub">Red Team оператор и пентестер с реальным опытом боевых задач.</p>
-
+  <p class="section-sub">Full Stack разработчик с глубокими практическими знаниями Offensive Security.</p>
+ 
   <div class="stats-row">
     <div class="stat-box">
-      <div class="stat-num" data-count="12">0</div>
-      <div class="stat-lbl">Пентест-сессий</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num" data-count="2">0</div>
-      <div class="stat-lbl">Критических RCE</div>
+      <div class="stat-num" data-count="2">0+</div>
+      <div class="stat-lbl">Лет коммерческой веб-разработки</div>
     </div>
     <div class="stat-box">
       <div class="stat-num">#1</div>
@@ -1355,115 +1349,85 @@
     </div>
     <div class="stat-box">
       <div class="stat-num" data-count="3">0</div>
-      <div class="stat-lbl">Кастомных тулов</div>
+      <div class="stat-lbl">Крупных релиза в проде</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" data-count="3">0</div>
+      <div class="stat-lbl">Кастомных ИБ-утилиты</div>
     </div>
   </div>
-
+ 
   <div class="about-grid">
     <div class="about-card">
-      <h3>// Red Team</h3>
-      <p>Полные Red Team операции: разведка → initial access → lateral movement → захват домена. C2 фреймворки (Cobalt Strike, Havoc, Sliver), кастомные импланты, обход EDR/AV. Эмуляция APT по MITRE ATT&CK.</p>
+      <h3>// AppSec & Web Security</h3>
+      <p>Глубокое понимание уязвимостей OWASP Top 10. Умею проводить аудит кода (White box), выявлять логические ошибки в API веб-компонентов как вручную (Burp Suite), так и автоматизированно.</p>
     </div>
     <div class="about-card">
-      <h3>// Пентест & Web</h3>
-      <p>Внутренние и внешние пентесты. AD: Kerberoasting, Pass-the-Hash, AS-REP Roast. Веб: OWASP Top 10. Критические RCE в реальных системах, полный захват домена.</p>
+      <h3>// Инфраструктура & DevOps</h3>
+      <p>Уверенная работа с Linux на уровне администратора, контейнеризация приложений (Docker, Kubernetes), базовое построение безопасных пайплайнов автоматической проверки кода (CI/CD, Trivy).</p>
     </div>
     <div class="about-card">
-      <h3>// Разработка</h3>
-      <p>Full Stack: PHP/Laravel + Vue.js + PostgreSQL. Кастомные инструменты на C++ и Bash. Backend API, интеграции 1С и платёжных систем. Оптимизация загрузки: 2.5 → 0.9 сек.</p>
+      <h3>// Разработка & Оптимизация</h3>
+      <p>Честный опыт Full Stack разработки интернет-магазинов и корпоративных сервисов (PHP/Laravel + Vue.js + PostgreSQL). Оптимизировал производительность систем: сократил скорость загрузки страниц с 2.5 до 0.9 сек, настроил кэширование и репликацию БД.</p>
     </div>
     <div class="about-card">
       <h3>// CTF & Инструменты</h3>
-      <p>#1 по России на TryHackMe King of the Hill. Пути: Red Team, Jr Penetration Tester, Web Fundamentals. Открытые инструменты: whyxss, whyasdscan, whytrix.</p>
+      <p>#1 по России на TryHackMe King of the Hill. Пути: Jr Penetration Tester, Web Fundamentals, Linux. Открытые инструменты: whyxss, whyasdscan, whytrix.</p>
     </div>
   </div>
 </section>
 </div>
-
+ 
 <!-- ═══ SKILLS ══════════════════════════════════════════ -->
 <div class="section-full" id="skills">
   <div class="inner reveal">
     <div class="section-label">02 / навыки</div>
     <h2 class="section-title">Технический стек</h2>
     <p class="section-sub">Инструменты и технологии, с которыми работаю ежедневно.</p>
-
+ 
     <div class="skills-grid">
       <div class="skill-group">
-        <div class="skill-group-title">// Red Team & C2</div>
+        <div class="skill-group-title">// Разработка & БД</div>
         <div class="skill-tags">
-          <span class="stag hot">red team</span>
-          <span class="stag hot">C2</span>
-          <span class="stag hot">Cobalt Strike</span>
-          <span class="stag hot">Havoc</span>
-          <span class="stag hot">Sliver</span>
-          <span class="stag">Metasploit</span>
-          <span class="stag">BOF</span>
-          <span class="stag">OPSEC</span>
-          <span class="stag">malware dev</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-group-title">// Тестирование</div>
-        <div class="skill-tags">
-          <span class="stag hot">Black box testing</span>
-          <span class="stag hot">White box testing</span>
-          <span class="stag hot">Burp Suite</span>
-          <span class="stag">Ручное тестирование</span>
-          <span class="stag">vuln scan</span>
-          <span class="stag">Nessus</span>
-          <span class="stag">Wireshark</span>
-          <span class="stag">privesc</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-group-title">// Атаки & техники</div>
-        <div class="skill-tags">
-          <span class="stag hot">RCE</span>
-          <span class="stag hot">XSS</span>
-          <span class="stag hot">OWASP Top 10</span>
-          <span class="stag">SQLi</span>
-          <span class="stag">CSRF / SSRF</span>
-          <span class="stag">IDOR</span>
-          <span class="stag">Kerberoasting</span>
-          <span class="stag">Pass-the-Hash</span>
-          <span class="stag">Lateral Movement</span>
-          <span class="stag">MITRE ATT&CK</span>
-          <span class="stag">AV/EDR Bypass</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <div class="skill-group-title">// Разработка</div>
-        <div class="skill-tags">
-          <span class="stag hot">C++</span>
-          <span class="stag hot">Bash</span>
-          <span class="stag hot">web</span>
+          <span class="stag hot">PHP</span>
+          <span class="stag hot">Laravel</span>
+          <span class="stag hot">Vue.js</span>
+          <span class="stag">JavaScript</span>
+          <span class="stag">C++</span>
+          <span class="stag">Bash</span>
           <span class="stag">Python</span>
-          <span class="stag">PHP / Laravel</span>
-          <span class="stag">Vue.js</span>
           <span class="stag">PostgreSQL</span>
           <span class="stag">REST API</span>
           <span class="stag">Git</span>
         </div>
       </div>
-
+ 
       <div class="skill-group">
-        <div class="skill-group-title">// Инфраструктура</div>
+        <div class="skill-group-title">// Безопасность приложений (AppSec)</div>
         <div class="skill-tags">
-          <span class="stag hot">network</span>
-          <span class="stag hot">Active Directory</span>
-          <span class="stag hot">Docker</span>
-          <span class="stag hot">Kubernetes</span>
-          <span class="stag hot">AWS</span>
-          <span class="stag">trivy</span>
-          <span class="stag">Linux (Kali/Ubuntu)</span>
-          <span class="stag">Windows AD</span>
-          <span class="stag">Pivoting / Tunneling</span>
+          <span class="stag hot">OWASP Top 10</span>
+          <span class="stag hot">Web Security</span>
+          <span class="stag hot">Burp Suite</span>
+          <span class="stag">Аудит кода (White/Black Box)</span>
+          <span class="stag">Trivy</span>
+          <span class="stag">Nessus</span>
+          <span class="stag">Анализ трафика (Wireshark)</span>
         </div>
       </div>
-
+ 
+      <div class="skill-group">
+        <div class="skill-group-title">// Инфраструктура & DevOps</div>
+        <div class="skill-tags">
+          <span class="stag hot">Docker</span>
+          <span class="stag hot">Kubernetes</span>
+          <span class="stag hot">CI/CD</span>
+          <span class="stag">Linux Administration (Kali/Ubuntu)</span>
+          <span class="stag">Active Directory (базовый аудит)</span>
+          <span class="stag">TCP/IP, DNS, HTTP/S</span>
+          <span class="stag">AWS</span>
+        </div>
+      </div>
+ 
       <div class="skill-group">
         <div class="skill-group-title">// Soft Skills</div>
         <div class="skill-tags">
@@ -1478,103 +1442,72 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ═══ SERVICES ════════════════════════════════════════ -->
 <section id="services" class="reveal">
   <div class="section-label">03 / услуги</div>
   <h2 class="section-title">Что я делаю</h2>
   <p class="section-sub">Готов взяться за ваш проект. Пишите в Telegram или на почту.</p>
-
+ 
   <div class="services-grid">
     <div class="svc-card" data-num="01">
       <div class="svc-icon">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
       </div>
-      <h3>Пентест</h3>
-      <p>Внутренние и внешние пентесты. Веб-приложения, Active Directory. Отчёт с PoC и шагами по исправлению.</p>
+      <h3>Веб-пентест и аудит безопасности (VAPT)</h3>
+      <p>Полный пентест веб-приложений (black/grey/white box). Поиск уязвимостей OWASP Top 10 в ваших веб-сервисах. Анализ логики API. Предоставление понятного отчета с PoC и четкими рекомендациями для разработчиков по исправлению кода.</p>
       <ul class="svc-list">
+        <li>Веб-пентест: black / grey / white box</li>
         <li>OSINT, сканирование, перечисление сервисов</li>
-        <li>SQLi, XSS, CSRF, SSRF, IDOR, RCE через Burp Suite</li>
-        <li>AD: Kerberoasting, Pass-the-Hash</li>
-        <li>Кастомные эксплойты на C++ / Bash</li>
+        <li>SQLi, XSS, CSRF, SSRF, IDOR через Burp Suite</li>
+        <li>Аудит кода (White box)</li>
+        <li>Отчёт с PoC и рекомендациями по фиксам</li>
       </ul>
     </div>
-
+ 
     <div class="svc-card" data-num="02">
-      <div class="svc-icon">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-      </div>
-      <h3>Red Team операция</h3>
-      <p>Эмуляция реального атакующего. Initial access → lateral movement → захват целей.</p>
-      <ul class="svc-list">
-        <li>Phishing с кастомными пейлоадами</li>
-        <li>C2 инфраструктура (Havoc, Sliver, Cobalt Strike)</li>
-        <li>Lateral movement, pivoting, persistence</li>
-        <li>Обход EDR/AV, payload obfuscation</li>
-        <li>Отчёт по MITRE ATT&CK с рекомендациями</li>
-      </ul>
-    </div>
-
-    <div class="svc-card" data-num="03">
       <div class="svc-icon">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
       </div>
-      <h3>Сайт под ключ</h3>
-      <p>Full Stack: корпоративные сайты, интернет-магазины, API-интеграции.</p>
+      <h3>Безопасная веб-разработка (Secure Web Dev)</h3>
+      <p>Разработка архитектуры и написание кода сайтов, интернет-магазинов и API "под ключ" с заложенными механизмами защиты (CSRF-защита, валидация данных, безопасная конфигурация окружения).</p>
       <ul class="svc-list">
         <li>Backend: PHP/Laravel + PostgreSQL, REST API</li>
         <li>Frontend: Vue.js, адаптивная вёрстка</li>
         <li>Интеграции: 1С, платёжные системы, СДЭК</li>
-        <li>CSRF-токены, WAF, мониторинг трафика</li>
+        <li>CSRF-токены, валидация, безопасный конфиг окружения</li>
       </ul>
     </div>
-
-    <div class="svc-card" data-num="04">
+ 
+    <div class="svc-card" data-num="03">
       <div class="svc-icon">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
       </div>
-      <h3>Кастомные инструменты</h3>
-      <p>Утилиты для пентеста: сканеры, эксплойты, обходчики защит, кастомные агенты.</p>
+      <h3>Автоматизация и скриптинг</h3>
+      <p>Написание кастомных парсеров логов, сканеров сети и скриптов автоматизации на Python/Bash под нужды вашей ИБ/IT-команды.</p>
       <ul class="svc-list">
-        <li>C++ утилиты: обход AV/EDR, reverse shell, инжекторы</li>
-        <li>Bash-скрипты для автоматизации пентеста</li>
-        <li>Кастомные BOF для Cobalt Strike / Havoc</li>
+        <li>Python/Bash скрипты для автоматизации задач</li>
+        <li>Парсеры логов, сканеры сети</li>
+        <li>Интеграция в CI/CD пайплайны</li>
       </ul>
     </div>
   </div>
 </section>
-
+ 
 <!-- ═══ EXPERIENCE ══════════════════════════════════════ -->
 <div class="section-full" id="experience">
   <div class="inner reveal">
     <div class="section-label">04 / опыт</div>
     <h2 class="section-title">Опыт работы</h2>
-    <p class="section-sub">2 года 9 месяцев в коммерческих проектах.</p>
-
+    <p class="section-sub">2 года 2 месяца коммерческого опыта.</p>
+ 
     <div class="exp-timeline">
       <div class="exp-item">
-        <div class="exp-period">Сент 2025 — Март 2026 · 7 месяцев</div>
-        <div class="exp-title">Red Team Operator / Pentester</div>
-        <div class="exp-company">SecLab Solutions · Москва</div>
-        <div class="exp-body">
-          Red Team операции и внутренние/внешние пентесты. C2 на Havoc и Sliver. Эмуляция APT по MITRE ATT&CK от initial access до domain dominance. AD: Kerberoasting, Pass-the-Hash, AS-REP Roast, Relay. Веб: SQLi, XSS, CSRF, SSRF, IDOR, RCE. Кастомные пейлоады с обходом EDR. Отчёты в Confluence/Jira.
-        </div>
-        <div class="exp-tags">
-          <span class="exp-tag">12 пентест-сессий</span>
-          <span class="exp-tag">2 критических RCE</span>
-          <span class="exp-tag">1 захват домена</span>
-          <span class="exp-tag">Havoc C2</span>
-          <span class="exp-tag">Burp Suite</span>
-          <span class="exp-tag">Active Directory</span>
-        </div>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-period">Июль 2023 — Авг 2025 · 2 года 2 месяца</div>
-        <div class="exp-title">Full Stack Developer</div>
+        <div class="exp-period">Июль 2023 — Август 2025 · 2 года 2 месяца</div>
+        <div class="exp-title">Full Stack Developer / AppSec</div>
         <div class="exp-company">Panther Energy · Пятигорск · pantherenergy.ru</div>
         <div class="exp-body">
-          Корпоративный интернет-магазин: PHP/Laravel + PostgreSQL + Vue.js. Backend API для интеграции с 1С, Redis-очереди. Корзина, личный кабинет, адаптивная вёрстка, админка. Интеграция ЮKassa и СДЭК. Загрузка с 2.5 до 0.9 сек через оптимизацию кэша.
+          Разработка и поддержка высоконагруженного корпоративного интернет-магазина на связке PHP/Laravel + Vue.js + PostgreSQL. Проектировал безопасные бэкенд API для интеграции с 1С, ЮKassa и СДЭК. Занимался оптимизацией производительности (ускорил загрузку с 2.5 до 0.9 сек, внедрил Redis). Отвечал за безопасность приложения: внедрял практики безопасной разработки, защищал систему от атак класса SQLi/XSS, настраивал Docker-контейнеры и отслеживал аномалии в сетевом трафике веб-сервера.
         </div>
         <div class="exp-tags">
           <span class="exp-tag">Laravel / Vue.js</span>
@@ -1583,20 +1516,22 @@
           <span class="exp-tag">REST API</span>
           <span class="exp-tag">↓2.5s → 0.9s загрузка</span>
           <span class="exp-tag">3 релиза</span>
+          <span class="exp-tag">Docker</span>
+          <span class="exp-tag">SQLi/XSS защита</span>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+ 
 <!-- ═══ TOOLS ════════════════════════════════════════════ -->
 <section id="tools" class="reveal">
   <div class="section-label">05 / тулы</div>
   <h2 class="section-title">Мои инструменты</h2>
   <p class="section-sub">Открытые инструменты для пентеста. Написаны на Python. <a href="https://github.com/whyasd666/t00ls" target="_blank" rel="noopener" style="color:var(--red);text-decoration:none;border-bottom:1px solid rgba(255,26,26,0.3);">github.com/whyasd666/t00ls →</a></p>
-
+ 
   <div class="tools-3col" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-
+ 
     <div class="about-card">
       <h3 style="font-size:16px;font-family:var(--mono);color:var(--red);margin-bottom:8px;">// whyxss.py</h3>
       <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Сканер XSS. Reflected и stored XSS, формы и URL-параметры с обходом фильтров.</p>
@@ -1611,7 +1546,7 @@
         Открыть на GitHub
       </a>
     </div>
-
+ 
     <div class="about-card">
       <h3 style="font-size:16px;font-family:var(--mono);color:var(--red);margin-bottom:8px;">// whyasdscan.py</h3>
       <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Многопоточный сканер портов с определением баннеров. CIDR-диапазоны, экспорт результатов.</p>
@@ -1626,10 +1561,10 @@
         Открыть на GitHub
       </a>
     </div>
-
+ 
     <div class="about-card">
       <h3 style="font-size:16px;font-family:var(--mono);color:var(--red);margin-bottom:8px;">// whytrix.py</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Генератор и обфускатор пейлоадов. Несколько техник кодирования, обход WAF и сигнатурных фильтров.</p>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Утилита для тестирования устойчивости WAF и сигнатурных фильтров. Генерирует различные вариации полезных нагрузок (XSS/SQLi) для проверки систем защиты на прочность.</p>
       <div style="background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:14px;font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;">
         <span style="color:var(--red);">$</span> python3 whytrix.py --type xss --encode b64<br>
         <span style="color:#4ADE80;">[+]</span> Generating payloads...<br>
@@ -1641,9 +1576,9 @@
         Открыть на GitHub
       </a>
     </div>
-
+ 
   </div>
-
+ 
   <div style="margin-top:24px;text-align:center;">
     <a href="https://github.com/whyasd666/t00ls" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border:1px solid rgba(255,26,26,0.4);border-radius:8px;font-family:var(--mono);font-size:13px;color:var(--red);text-decoration:none;background:rgba(255,26,26,0.06);letter-spacing:0.08em;transition:background 0.2s,border-color 0.2s;" onmouseover="this.style.background='rgba(255,26,26,0.12)';this.style.borderColor='rgba(255,26,26,0.7)'" onmouseout="this.style.background='rgba(255,26,26,0.06)';this.style.borderColor='rgba(255,26,26,0.4)'">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -1651,7 +1586,7 @@
     </a>
   </div>
 </section>
-
+ 
 <!-- ═══ TRYHACKME ══════════════════════════════════════ -->
 <div class="thm-section" id="tryhackme">
   <div class="thm-inner reveal">
@@ -1663,7 +1598,7 @@
       </p>
       <div class="thm-rank">#1 RU</div>
       <p style="font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:24px;">King of the Hill · Russia</p>
-
+ 
       <div class="thm-badge-row">
         <div class="thm-badge"><span class="thm-badge-dot"></span>Red Team Path · 2026</div>
         <div class="thm-badge"><span class="thm-badge-dot"></span>Jr Pentester · 2025</div>
@@ -1671,7 +1606,7 @@
         <div class="thm-badge"><span class="thm-badge-dot"></span>Pre Security · 2023</div>
       </div>
     </div>
-
+ 
     <div class="thm-platform-box">
       <div style="font-family:var(--mono);font-size:11px;color:var(--red);letter-spacing:0.15em;margin-bottom:16px;">// ПРОФИЛЬ</div>
       <div id="thm-widget-slot" style="min-height:80px;"></div>
@@ -1683,13 +1618,13 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ═══ CERTS ════════════════════════════════════════════ -->
 <section class="reveal">
   <div class="section-label">07 / сертификаты</div>
   <h2 class="section-title">Пройденные пути</h2>
   <p class="section-sub">Сертификаты TryHackMe — подтверждение практических навыков.</p>
-
+ 
   <div class="certs-grid">
     <div class="cert-card">
       <div class="cert-svg-icon">
@@ -1725,14 +1660,14 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- ═══ CONTACT ══════════════════════════════════════════ -->
 <div class="section-full" id="contact">
   <div class="inner reveal">
     <div class="section-label">08 / контакт</div>
     <h2 class="section-title">Связаться</h2>
     <p class="section-sub">Пишите в Telegram или на почту — отвечаю быстро.</p>
-
+ 
     <div class="contact-grid">
       <div class="contact-cards">
         <a class="ccard" href="tel:+79187890009">
@@ -1744,7 +1679,7 @@
             <div class="ccard-val">+7 (918) 789-00-09</div>
           </div>
         </a>
-
+ 
         <a class="ccard" href="mailto:messdope@mail.ru">
           <div class="ccard-icon">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
@@ -1754,7 +1689,7 @@
             <div class="ccard-val">messdope@mail.ru</div>
           </div>
         </a>
-
+ 
         <a class="ccard" href="https://t.me/whyasd666" target="_blank">
           <div class="ccard-icon">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.284c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.27 13.924 4.32 13.03c-.636-.203-.647-.636.136-.94l10.89-4.198c.532-.19 1.001.13.816.956z"/></svg>
@@ -1764,7 +1699,7 @@
             <div class="ccard-val">@whyasd666</div>
           </div>
         </a>
-
+ 
         <a class="ccard" href="https://github.com/whyasd666/t00ls" target="_blank">
           <div class="ccard-icon">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -1774,7 +1709,7 @@
             <div class="ccard-val">github.com/whyasd666/t00ls</div>
           </div>
         </a>
-
+ 
         <a class="ccard" href="https://tryhackme.com/p/whyasd666" target="_blank">
           <div class="ccard-icon">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
@@ -1785,14 +1720,14 @@
           </div>
         </a>
       </div>
-
+ 
       <div class="avail-box">
         <div class="avail-status">
           <div class="avail-dot"></div>
           <span>Открыт к предложениям</span>
         </div>
         <h3>Готов к работе</h3>
-        <p>Рассматриваю заказы на пентест, Red Team операции, разработку и кастомные инструменты. Ищу постоянную занятость в ИБ.</p>
+        <p>Рассматриваю предложения по разработке веб-приложений, автоматизации процессов и ИБ-аудиту. Ищу постоянную удаленную занятость на позицию Junior AppSec / DevSecOps инженера.</p>
         <div class="avail-items">
           <div class="avail-item">Полная занятость или проектная работа</div>
           <div class="avail-item">Удалённый формат или офис</div>
@@ -1803,13 +1738,13 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ═══ FOOTER ══════════════════════════════════════════ -->
 <footer>
-  <p>© 2025 <span>Whyasd</span> — Pentester & Developer</p>
+  <p>© 2025 <span>Whyasd</span> — Full Stack Developer & AppSec</p>
   <p>Пятигорск · <span>messdope@mail.ru</span> · @whyasd666</p>
 </footer>
-
+ 
 <script>
   const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
   const dot  = document.getElementById('cursorDot');
@@ -1828,15 +1763,15 @@
       el.addEventListener('mouseleave', () => ring.classList.remove('expand'));
     });
   }
-
+ 
   const nav = document.getElementById('mainNav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
-
+ 
   const burger    = document.getElementById('burgerBtn');
   const mobileNav = document.getElementById('mobileNav');
-
+ 
   function openMob() {
     mobileNav.classList.add('open');
     burger.classList.add('open');
@@ -1847,20 +1782,20 @@
     burger.classList.remove('open');
     document.body.style.overflow = '';
   }
-
+ 
   burger.addEventListener('click', () => {
     mobileNav.classList.contains('open') ? closeMob() : openMob();
   });
   document.getElementById('mobileClose').addEventListener('click', closeMob);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMob(); });
-
+ 
   const ro = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('up'); ro.unobserve(e.target); }
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
+ 
   const co = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting && e.target.dataset.count) {
@@ -1878,7 +1813,7 @@
     });
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-count]').forEach(el => co.observe(el));
-
+ 
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
@@ -1891,7 +1826,7 @@
       }
     });
   });
-
+ 
   function setVh() {
     document.documentElement.style.setProperty('--real-vh', window.innerHeight * 0.01 + 'px');
   }
@@ -1900,3 +1835,5 @@
 </script>
 </body>
 </html>
+ 
+
